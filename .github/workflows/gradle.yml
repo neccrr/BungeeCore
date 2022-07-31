@@ -16,6 +16,8 @@ on:
       - '**/.gitignore'
       - '**/.gitmodules'
       - '**/.imgbotconfig'
+      - '**/.github/dependabot.yml'
+      - '**/.github/workflows/gradle.yml'
   pull_request:
     branches: [ "main" ]
     paths-ignore:
@@ -24,6 +26,8 @@ on:
       - '**/.gitignore'
       - '**/.gitmodules'
       - '**/.imgbotconfig'
+      - '**/.github/dependabot.yml'
+      - '**/.github/workflows/gradle.yml'
 
 permissions:
   contents: read
