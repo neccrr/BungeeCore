@@ -12,6 +12,7 @@ on:
     branches: [ "main" ]
     paths-ignore:
       - '**/README.md'
+      - '**/SECURITY.md'
       - '**/LICENSE'
       - '**/.gitignore'
       - '**/.gitmodules'
@@ -22,6 +23,7 @@ on:
     branches: [ "main" ]
     paths-ignore:
       - '**/README.md'
+      - '**/SECURITY.md'
       - '**/LICENSE'
       - '**/.gitignore'
       - '**/.gitmodules'
