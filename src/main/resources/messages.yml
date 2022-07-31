@@ -1,0 +1,6 @@
+Ping-Command:
+  Ping-Self: "&fYour ping is&7: &b{ping} &fms"
+  Ping-Other: "&b{target_name}'s &fPing is&7: &b{target_ping} &fms"
+
+Reload-Command:
+  Reload-Successful: "&aSuccessfully reloaded the plugin!"

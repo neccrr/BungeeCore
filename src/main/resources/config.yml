@@ -1,0 +1,3 @@
+prefix: ""
+use-silent-permission-check: true
+use-confirmation: true

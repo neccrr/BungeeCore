@@ -1,0 +1,30 @@
+[
+  {
+    "name": "cloud-core-1.7.0.jar",
+    "url": "https://search.maven.org/remotecontent?filepath=cloud/commandframework/cloud-core/1.7.0/cloud-core-1.7.0.jar"
+  },
+  {
+    "name": "cloud-annotations-1.7.0.jar",
+    "url": "https://search.maven.org/remotecontent?filepath=cloud/commandframework/cloud-annotations/1.7.0/cloud-annotations-1.7.0.jar"
+  },
+  {
+    "name": "cloud-bungee-1.7.0.jar",
+    "url": "https://search.maven.org/remotecontent?filepath=cloud/commandframework/cloud-bungee/1.7.0/cloud-bungee-1.7.0.jar"
+  },
+  {
+    "name": "cloud-minecraft-extras-1.7.0.jar",
+    "url": "https://search.maven.org/remotecontent?filepath=cloud/commandframework/cloud-minecraft-extras/1.7.0/cloud-minecraft-extras-1.7.0.jar"
+  },
+  {
+    "name": "cloud-services-1.7.0.jar",
+    "url": "https://search.maven.org/remotecontent?filepath=cloud/commandframework/cloud-services/1.7.0/cloud-services-1.7.0.jar"
+  },
+  {
+    "name": "cloud-tasks-1.7.0.jar",
+    "url": "https://search.maven.org/remotecontent?filepath=cloud/commandframework/cloud-tasks/1.7.0/cloud-tasks-1.7.0.jar"
+  },
+  {
+    "name": "geantyref-1.3.13.jar",
+    "url": "https://search.maven.org/remotecontent?filepath=io/leangen/geantyref/geantyref/1.3.13/geantyref-1.3.13.jar"
+  }
+]
