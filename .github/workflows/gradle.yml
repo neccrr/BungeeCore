@@ -1,0 +1,56 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.gitignore'
+      - '**/.gitmodules'
+      - '**/.imgbotconfig'
+  pull_request:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**/README.md'
+      - '**/LICENSE'
+      - '**/.gitignore'
+      - '**/.gitmodules'
+      - '**/.imgbotconfig'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+    - uses: actions/checkout@v3
+    - name: Java setup
+      uses: actions/setup-java@v3
+      with:
+        distribution: "temurin"
+        java-version: 17.0.3
+        cache: "gradle"
+    - name: Set outputs
+      id: vars
+      run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+    - name: Give ./gradlew perms
+      run: chmod +x gradlew
+    - name: Build
+      run: ./gradlew build
+    - name: Rename build artifacts
+      run: mv build/libs/NecroCore-*.jar build/libs/NecroCore-${{ steps.vars.outputs.sha_short }}.jar
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: NecroCore
+        path: build/libs/NecroCore-${{ steps.vars.outputs.sha_short }}.jar
