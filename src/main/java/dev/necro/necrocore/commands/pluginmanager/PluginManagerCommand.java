@@ -3,7 +3,6 @@ package dev.necro.necrocore.commands.pluginmanager;
 import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandDescription;
 import cloud.commandframework.annotations.CommandMethod;
-import cloud.commandframework.annotations.ProxiedBy;
 import cloud.commandframework.annotations.specifier.Greedy;
 import dev.necro.necrocore.commands.api.CommandClass;
 import dev.necro.necrocore.managers.pluginmanager.PluginManager;
@@ -17,7 +16,6 @@ import java.io.File;
 
 public class PluginManagerCommand extends CommandClass {
 
-    @ProxiedBy("bungeepluginmanager|proxypluginmanager|bpm|ppm list")
     @CommandMethod("necrocore pluginmanager|pm list")
     @CommandDescription("Lists all loaded plugin")
     public void listCommand(final @NonNull CommandSender sender) {
@@ -28,7 +26,6 @@ public class PluginManagerCommand extends CommandClass {
         sender.sendMessage(new TextComponent(PluginManager.getPluginList()));
     }
 
-    @ProxiedBy("bungeepluginmanager|proxypluginmanager|bpm|ppm load")
     @CommandMethod("necrocore pluginmanager|pm load <pluginName>")
     @CommandDescription("Loads a plugin")
     public void loadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name") @Greedy String pluginName) {
@@ -47,7 +44,6 @@ public class PluginManagerCommand extends CommandClass {
         PluginManager.loadPlugin(file);
     }
 
-    @ProxiedBy("bungeepluginmanager|proxypluginmanager|bpm|ppm unload")
     @CommandMethod("necrocore pluginmanager|pm unload <pluginName>")
     @CommandDescription("Unloads a plugin")
     public void unloadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name") @Greedy String pluginName) {
@@ -59,7 +55,6 @@ public class PluginManagerCommand extends CommandClass {
         PluginManager.unloadPlugin(bungeePluginManager.getPlugin(pluginName));
     }
 
-    @ProxiedBy("bungeepluginmanager|proxypluginmanager|bpm|ppm reload")
     @CommandMethod("necrocore pluginmanager|pm reload <pluginName>")
     @CommandDescription("Reloads a plugin")
     public void reloadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name") @Greedy String pluginName) {

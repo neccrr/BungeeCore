@@ -1,7 +1,7 @@
 # Plugin Manager
 Plugin-Manager:
-  Plugin-List: "&fPlugins &7(&b{plugins_amount}&7): &b{plugins_name}"
-  Plugin-NotFound: "Cannot find plugin named {plugin_name}"
+  Plugin-List: "&fPlugins &7(&b{plugin_amounts}&7): &b{plugin_lists}"
+  Plugin-NotFound: "&cCould not find plugin named &l{plugin_name}"
 
 # Ping Command
 Ping-Command:

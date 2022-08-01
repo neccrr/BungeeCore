@@ -51,6 +51,9 @@ public final class NecroCore extends Plugin {
         // Load dependencies
         this.loadDependencies();
 
+        // Hook into LuckPerms
+        this.hookLuckPerms();
+
         // Initialize configs
         this.loadConfigs();
 
@@ -104,6 +107,24 @@ public final class NecroCore extends Plugin {
         messagesConfigManager.save();
 
         this.getLogger().info("Saved the configuration file in " + (System.currentTimeMillis() - millis) + "ms!");
+    }
+
+    /**
+     * Hooks into LuckPerms
+     */
+    public void hookLuckPerms() {
+        long millis = System.currentTimeMillis();
+        this.getLogger().info("Hooking into LuckPerms...");
+        if (this.getProxy().getPluginManager().getPlugin("LuckPerms") == null) {
+            this.getLogger().info("");
+            this.getLogger().warning("WARNING! Unable to hook into LuckPerms!");
+            this.getLogger().warning("Make sure you installed LuckPerms correctly!");
+            this.getLogger().warning("This plugin won't work properly without LuckPerms!");
+            this.getLogger().warning("https://luckperms.net/download");
+            this.getLogger().info("");
+        } else {
+            this.getLogger().info("Hooked into LuckPerms! (took " + (System.currentTimeMillis() - millis) + "ms)");
+        }
     }
 
     /**

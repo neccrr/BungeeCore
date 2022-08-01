@@ -68,7 +68,6 @@ public class NecroCoreCommand {
                     String query = commandContext.getOrDefault("query", null);
                     if (query == null) {
                         sender.sendMessage(new TextComponent(Utils.getPluginDescription()));
-                        return;
                     }
                 }));
 
