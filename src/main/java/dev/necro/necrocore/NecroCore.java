@@ -6,16 +6,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.necro.necrocore.commands.main.NecroCoreCommand;
 import dev.necro.necrocore.config.ConfigManager;
+import dev.necro.necrocore.config.configs.MainConfigManager;
+import dev.necro.necrocore.config.configs.MessagesConfigManager;
 import dev.necro.necrocore.dependency.DependencyManager;
 import dev.necro.necrocore.managers.ConfirmationManager;
-import dev.necro.necrocore.managers.config.MainConfigManager;
-import dev.necro.necrocore.managers.config.MessagesConfigManager;
 import dev.necro.necrocore.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.config.Configuration;
 
 import java.io.File;
 import java.io.IOException;
@@ -87,9 +86,9 @@ public final class NecroCore extends Plugin {
         ConfigManager configManager = new ConfigManager(this);
 
         // Load main config
-        Configuration mainConfig = configManager.getConfig("config.yml");
+        configManager.getConfig("config.yml");
         // Load messages config
-        Configuration messagesConfig = configManager.getConfig("messages.yml");
+        configManager.getConfig("messages.yml");
     }
 
     /**

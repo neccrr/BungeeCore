@@ -1,3 +1,6 @@
+# DO NOT TOUCH THIS
+config-version: 1.0
+
 prefix: ""
 use-silent-permission-check: true
 use-confirmation: true

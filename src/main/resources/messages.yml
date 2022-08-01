@@ -1,6 +1,13 @@
+# Plugin Manager
+Plugin-Manager:
+  Plugin-List: "&fPlugins &7(&b{plugins_amount}&7): &b{plugins_name}"
+  Plugin-NotFound: "Cannot find plugin named {plugin_name}"
+
+# Ping Command
 Ping-Command:
   Ping-Self: "&fYour ping is&7: &b{ping} &fms"
   Ping-Other: "&b{target_name}'s &fPing is&7: &b{target_ping} &fms"
 
+# Reload command
 Reload-Command:
   Reload-Successful: "&aSuccessfully reloaded the plugin!"

@@ -1,4 +1,4 @@
-package dev.necro.necrocore.managers.config;
+package dev.necro.necrocore.config.configs;
 
 import dev.necro.necrocore.NecroCore;
 import dev.necro.necrocore.config.ConfigManager;
