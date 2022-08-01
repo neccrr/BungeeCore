@@ -31,7 +31,7 @@ public class PluginManagerCommand extends CommandClass {
     @ProxiedBy("bungeepluginmanager|proxypluginmanager|bpm|ppm load")
     @CommandMethod("necrocore pluginmanager|pm load <pluginName>")
     @CommandDescription("Loads a plugin")
-    public void loadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name", suggestions = "plugins") @Greedy String pluginName) {
+    public void loadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name") @Greedy String pluginName) {
         if (!Utils.checkPermission(sender, "pluginmanager.load")) {
             return;
         }
@@ -50,7 +50,7 @@ public class PluginManagerCommand extends CommandClass {
     @ProxiedBy("bungeepluginmanager|proxypluginmanager|bpm|ppm unload")
     @CommandMethod("necrocore pluginmanager|pm unload <pluginName>")
     @CommandDescription("Unloads a plugin")
-    public void unloadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name", suggestions = "plugins") @Greedy String pluginName) {
+    public void unloadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name") @Greedy String pluginName) {
         if (!Utils.checkPermission(sender, "pluginmanager.unload")) {
             return;
         }
@@ -62,7 +62,7 @@ public class PluginManagerCommand extends CommandClass {
     @ProxiedBy("bungeepluginmanager|proxypluginmanager|bpm|ppm reload")
     @CommandMethod("necrocore pluginmanager|pm reload <pluginName>")
     @CommandDescription("Reloads a plugin")
-    public void reloadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name", suggestions = "plugins") @Greedy String pluginName) {
+    public void reloadCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "pluginName", description = "The plugin name") @Greedy String pluginName) {
         if (!Utils.checkPermission(sender, "pluginmanager.reload")) {
             return;
         }
