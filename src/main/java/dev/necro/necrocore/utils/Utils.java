@@ -21,7 +21,7 @@ public class Utils {
      */
     public String getPluginDescription() {
         if (pluginDescription == null) {
-            pluginDescription = plugin.getMainConfigManager().getPrefix() + StringUtils.colorize("&eThis server is running &bNecroCore &b" + plugin.getDescription().getVersion() + " &eby &b" + plugin.getDescription().getAuthor());
+            pluginDescription = plugin.getMainConfig().getPrefix() + StringUtils.colorize("&eThis server is running &bNecroCore &b" + plugin.getDescription().getVersion() + " &eby &b" + plugin.getDescription().getAuthor());
         }
 
         return pluginDescription;
@@ -56,7 +56,7 @@ public class Utils {
      */
     public boolean checkPermission(CommandSender target, String permission, boolean others, boolean showPermission, boolean silent, @Nullable String command) {
         permission = "necrocore." + permission.toLowerCase();
-        silent = plugin.getMainConfigManager().isSilent();
+        silent = plugin.getMainConfig().isSilent();
 
         if (others) {
             permission += ".others";
@@ -69,15 +69,15 @@ public class Utils {
         if (!silent) {
             if (showPermission) {
                 if (command != null) {
-                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do &l" + command + "&c!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do &l" + command + "&c!")));
                 } else {
-                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do that!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do that!")));
                 }
             } else {
                 if (command != null) {
-                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission to do &l" + command + "&c!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission to do &l" + command + "&c!")));
                 } else {
-                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission to do that!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() +  StringUtils.colorize("&cYou don't have the required permission to do that!")));
                 }
             }
         } else {

@@ -1,3 +1,11 @@
+# General
+General:
+  Target-NotFound: "&cPlayer &l{target_name} &cnot found!"
+  Player-Only: "&cOnly player can execute this command!"
+  Reload-Successful: "&aSuccessfully reloaded the plugin!"
+  Send-To-Server: "&7Sending you to {server_name}..."
+  Send-To-Server-Successful: "&7Successfully connected to {server_name}!"
+
 # Plugin Manager
 Plugin-Manager:
   Plugin-List: "&fPlugins &7(&b{plugin_amounts}&7): &b{plugin_lists}"
@@ -8,6 +16,7 @@ Ping-Command:
   Ping-Self: "&fYour ping is&7: &b{ping} &fms"
   Ping-Other: "&b{target_name}'s &fPing is&7: &b{target_ping} &fms"
 
-# Reload command
-Reload-Command:
-  Reload-Successful: "&aSuccessfully reloaded the plugin!"
+# Goto Command
+Goto-Command:
+  Goto-Connected: "&fYou have been connected to &b{target_name}'s &fserver! &b({target_server_name})"
+  Goto-SameServer: "&fYou're already on &b{target_name}'s &fserver! &b({target_server_name})"

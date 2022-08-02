@@ -37,7 +37,7 @@ public class PluginManagerCommand extends CommandClass {
         File file = new File("plugins", filename + ".jar");
 
         if (!file.exists()) {
-            sender.sendMessage(new TextComponent(plugin.getMessagesConfigManager().getPluginNotFound()
+            sender.sendMessage(new TextComponent(plugin.getMessagesConfig().getPluginNotFound()
                     .replace("{plugin_name}", file.toString())));
         }
 

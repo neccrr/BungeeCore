@@ -13,10 +13,10 @@ public class ReloadCommand extends CommandClass {
     @CommandDescription("Reloads the plugin's configuration and messages")
     public void reloadCommand(final @NonNull CommandSender sender) {
         // Reloads the configuration and messages file
-        plugin.getMainConfigManager().reload();
-        plugin.getMessagesConfigManager().reload();
+        plugin.getMainConfig().reload();
+        plugin.getMessagesConfig().reload();
 
         // Tell the command sender that the files have been reloaded
-        sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() + plugin.getMessagesConfigManager().getReloadSuccessful()));
+        sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getReloadSuccessful()));
     }
 }

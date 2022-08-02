@@ -12,7 +12,8 @@ import dev.necro.necrocore.dependency.DependencyManager;
 import dev.necro.necrocore.managers.ConfirmationManager;
 import dev.necro.necrocore.utils.StringUtils;
 import lombok.Getter;
-import lombok.Setter;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -29,14 +30,13 @@ public final class NecroCore extends Plugin {
     @Getter
     private static NecroCore instance;
 
-    @Setter
-    private ConfigManager mainConfig, messagesConfig;
-
-    private MainConfigManager mainConfigManager;
-    private MessagesConfigManager messagesConfigManager;
+    private MainConfigManager mainConfig;
+    private MessagesConfigManager messagesConfig;
     private ConfirmationManager confirmationManager;
 
     private NecroCoreCommand mainCommand;
+
+    private LuckPerms luckPerms;
 
     /**
      * Plugin startup logic
@@ -58,8 +58,8 @@ public final class NecroCore extends Plugin {
         this.loadConfigs();
 
         // Initialize managers
-        this.mainConfigManager = new MainConfigManager(this);
-        this.messagesConfigManager = new MessagesConfigManager(this);
+        this.mainConfig = new MainConfigManager(this);
+        this.messagesConfig = new MessagesConfigManager(this);
         this.confirmationManager = new ConfirmationManager(this);
 
         // Registers commands
@@ -102,9 +102,9 @@ public final class NecroCore extends Plugin {
         this.getLogger().info("Saving configuration files...");
 
         // Save the main configuration file
-        mainConfigManager.save();
+        mainConfig.save();
         // Save the messages' configuration file
-        messagesConfigManager.save();
+        messagesConfig.save();
 
         this.getLogger().info("Saved the configuration file in " + (System.currentTimeMillis() - millis) + "ms!");
     }
@@ -117,12 +117,14 @@ public final class NecroCore extends Plugin {
         this.getLogger().info("Hooking into LuckPerms...");
         if (this.getProxy().getPluginManager().getPlugin("LuckPerms") == null) {
             this.getLogger().info("");
-            this.getLogger().warning("WARNING! Unable to hook into LuckPerms!");
-            this.getLogger().warning("Make sure you installed LuckPerms correctly!");
-            this.getLogger().warning("This plugin won't work properly without LuckPerms!");
-            this.getLogger().warning("https://luckperms.net/download");
+            this.getLogger().severe("WARNING! Unable to hook into LuckPerms!");
+            this.getLogger().severe("Make sure you installed LuckPerms correctly!");
+            this.getLogger().severe("This plugin won't work properly without LuckPerms!");
+            this.getLogger().severe("https://luckperms.net/download");
             this.getLogger().info("");
         } else {
+            // Initialize the LuckPerms API using LuckPermsProvider
+            luckPerms = LuckPermsProvider.get();
             this.getLogger().info("Hooked into LuckPerms! (took " + (System.currentTimeMillis() - millis) + "ms)");
         }
     }

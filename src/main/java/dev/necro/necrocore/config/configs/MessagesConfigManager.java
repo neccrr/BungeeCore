@@ -15,9 +15,11 @@ public class MessagesConfigManager {
 
     private String pingSelf, pingOther;
 
-    private String reloadSuccessful;
+    private String targetNotFound, reloadSuccessful, playerOnly;
 
     private String pluginList, pluginNotFound;
+
+    private String gotoConnected, gotoSameServer;
 
     public MessagesConfigManager(NecroCore plugin) {
         this.plugin = plugin;
@@ -31,12 +33,18 @@ public class MessagesConfigManager {
         ConfigManager configManager = new ConfigManager(plugin);
         Configuration messagesConfig = configManager.getConfig("messages.yml");
 
+        // General plugin messages configuration
+        this.targetNotFound = StringUtils.colorize(messagesConfig.getString("General.Target-NotFound"));
+        this.reloadSuccessful = StringUtils.colorize(messagesConfig.getString("General.Reload-Successful"));
+        this.playerOnly = StringUtils.colorize(messagesConfig.getString("General.Player-Only"));
+
         // Ping Command messages configuration
         this.pingSelf = StringUtils.colorize(messagesConfig.getString("Ping-Command.Ping-Self"));
         this.pingOther = StringUtils.colorize(messagesConfig.getString("Ping-Command.Ping-Other"));
 
-        // Reload messages configuration
-        this.reloadSuccessful = StringUtils.colorize(messagesConfig.getString("Reload-Command.Reload-Successful"));
+        // Goto Command Messages configuration
+        this.gotoConnected = StringUtils.colorize(messagesConfig.getString("Goto-Command.Goto-Connected"));
+        this.gotoSameServer = StringUtils.colorize(messagesConfig.getString("Goto-Command.Goto-SameServer"));
 
         // Plugin Manager messages configuration
         this.pluginList = StringUtils.colorize(messagesConfig.getString("Plugin-Manager.Plugin-List"));
@@ -50,12 +58,18 @@ public class MessagesConfigManager {
         ConfigManager configManager = new ConfigManager(plugin);
         Configuration messagesConfig = configManager.getConfig("config.yml");
 
+        // General messages configuration
+        messagesConfig.set("General.Target-NotFound", this.targetNotFound);
+        messagesConfig.set("General.Reload-Successful", this.reloadSuccessful);
+        messagesConfig.set("General.Player-Only", this.playerOnly);
+
         // Ping Command Messages configuration
         messagesConfig.set("Ping-Command.Ping-Other", this.pingSelf);
         messagesConfig.set("Ping-Command.Ping-Other", this.pingOther);
 
-        // Reload messages configuration
-        messagesConfig.set("Reload-Command.Reload-Successful", this.reloadSuccessful);
+        // Goto Command Messages configuration
+        messagesConfig.set("Goto-Command.Goto-Connected", this.gotoConnected);
+        messagesConfig.set("Goto-Command.Goto-SameServer", this.gotoSameServer);
 
         // Plugin Manager messages configuration
         messagesConfig.set("Plugin-Manager.Plugin-List", this.pluginList);

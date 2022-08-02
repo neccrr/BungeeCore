@@ -34,7 +34,7 @@ public class ConfirmationManager {
                 warnings.forEach(player::sendMessage);
             }
 
-            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() + StringUtils.colorize("&ePlease type &b/necrocore confirm &eto confirm your action.")));
+            player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&ePlease type &b/necrocore confirm &eto confirm your action.")));
             this.confirmationMap.put(player, callable);
         } else {
             callable.call();
@@ -76,11 +76,11 @@ public class ConfirmationManager {
      */
     public void confirm(ProxiedPlayer player) {
         if (!this.confirmationMap.containsKey(player)) {
-            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() + StringUtils.colorize("&cYou don't have any pending action!")));
+            player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&cYou don't have any pending action!")));
             return;
         }
 
-        player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() + StringUtils.colorize("&aAction confirmed.")));
+        player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&aAction confirmed.")));
         this.confirmationMap.get(player).call();
     }
 
@@ -92,7 +92,7 @@ public class ConfirmationManager {
      */
     public void deleteConfirmation(ProxiedPlayer player) {
         if (!this.confirmationMap.containsKey(player)) {
-            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPrefix() + StringUtils.colorize("&cYou don't have any pending action!")));
+            player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&cYou don't have any pending action!")));
             return;
         }
 
