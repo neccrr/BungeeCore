@@ -14,7 +14,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 public class GotoCommand extends CommandClass {
 
-    @CommandMethod("goto <player>")
+    @CommandMethod("goto <target>")
     @CommandDescription("Sends you to player's current server")
     public void gotoCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "target", description = "The target player", suggestions = "players") String targetName) {
         if (sender instanceof ProxiedPlayer) {
