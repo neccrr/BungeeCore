@@ -4,6 +4,7 @@ import cloud.commandframework.annotations.Argument;
 import cloud.commandframework.annotations.CommandDescription;
 import cloud.commandframework.annotations.CommandMethod;
 import dev.necro.necrocore.commands.api.CommandClass;
+import dev.necro.necrocore.hooks.LuckPermsHook;
 import dev.necro.necrocore.utils.StringUtils;
 import dev.necro.necrocore.utils.Utils;
 import net.md_5.bungee.api.CommandSender;
@@ -34,6 +35,9 @@ public class InfoCommand extends CommandClass {
                 sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + result
                         .replace("{target_name}", target.getName())
                         .replace("{target_uuid}", String.valueOf(target.getUniqueId()))
+                        .replace("{target_rank}", LuckPermsHook.getGroupDisplayName(target))
+                        .replace("{target_prefix}", LuckPermsHook.getPrefix(target))
+                        .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
                         .replace("{target_server_name}", target.getServer().getInfo().getName())
                         .replace("{target_ping}", String.valueOf(target.getPing()))
                         .replace("{target_ip}", String.valueOf(target.getSocketAddress()))

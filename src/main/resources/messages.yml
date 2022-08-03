@@ -25,7 +25,8 @@ Goto-Command:
 Info-Command:
   Info-Message:
     - '&7&m                                            '
-    - '&fPlayer: &b{target_name}'
+    - '&fPlayer: &b{target_suffix}{target_name}'
+    - '&fRank: &b{target_rank}'
     - '&fUUID: &b{target_uuid}'
     - '&fServer: &b{target_server_name}'
     - '&fPing: &b{target_ping}'
