@@ -33,12 +33,13 @@ public class InfoCommand extends CommandClass {
             for (String result : plugin.getMessagesConfig().getInfoMessage()) {
                 sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + result
                         .replace("{target_name}", target.getName())
-                        .replace("{target_uuid}", String.valueOf(target.getUniqueId())
+                        .replace("{target_uuid}", String.valueOf(target.getUniqueId()))
                         .replace("{target_server_name}", target.getServer().getInfo().getName())
-                        .replace("{target_ping}", String.valueOf(target.getPing())))
+                        .replace("{target_ping}", String.valueOf(target.getPing()))
                         .replace("{target_ip}", String.valueOf(target.getSocketAddress()))
                         .replace("{target_client_version}", Utils.getClientVersion(target.getPendingConnection().getVersion()))
-                        .replace("{target_protocolNumber}", String.valueOf(target.getPendingConnection().getVersion()))));
+                        .replace("{target_protocolNumber}", String.valueOf(target.getPendingConnection().getVersion()))
+                        ));
             }
         });
     }
