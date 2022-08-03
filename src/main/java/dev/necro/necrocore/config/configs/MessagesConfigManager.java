@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 import net.md_5.bungee.config.Configuration;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class MessagesConfigManager {
@@ -20,6 +22,8 @@ public class MessagesConfigManager {
     private String pluginList, pluginNotFound;
 
     private String gotoConnected, gotoSameServer;
+
+    private List<String> infoMessage;
 
     public MessagesConfigManager(NecroCore plugin) {
         this.plugin = plugin;
@@ -49,6 +53,9 @@ public class MessagesConfigManager {
         // Plugin Manager messages configuration
         this.pluginList = StringUtils.colorize(messagesConfig.getString("Plugin-Manager.Plugin-List"));
         this.pluginNotFound = StringUtils.colorize(messagesConfig.getString("Plugin-Manager.Plugin-NotFound"));
+
+        // Info Command messages configuration
+        this.infoMessage = StringUtils.colorize(messagesConfig.getStringList("Info-Command.Info-Message"));
     }
 
     /**
@@ -74,6 +81,9 @@ public class MessagesConfigManager {
         // Plugin Manager messages configuration
         messagesConfig.set("Plugin-Manager.Plugin-List", this.pluginList);
         messagesConfig.set("Plugin-Manager.Plugin-NotFound", this.pluginNotFound);
+
+        // Info Command messages configuration
+        messagesConfig.set("Info-Command.Info-Message", this.infoMessage);
 
         configManager.save("messages.yml");
     }

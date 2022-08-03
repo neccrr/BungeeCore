@@ -20,3 +20,16 @@ Ping-Command:
 Goto-Command:
   Goto-Connected: "&fYou have been connected to &b{target_name}'s &fserver! &b({target_server_name})"
   Goto-SameServer: "&fYou're already on &b{target_name}'s &fserver! &b({target_server_name})"
+
+# Info Command
+Info-Command:
+  Info-Message:
+    - '&7&m                                            '
+    - '&fPlayer: &b{target_name}'
+    - '&fUUID: &b{target_uuid}'
+    - '&fServer: &b{target_server_name}'
+    - '&fPing: &b{target_ping}'
+    - '&fIP: &b{target_ip}'
+    - '&fVersion: &b{target_client_version}'
+    - '&fProtocol: &b{target_protocolNumber}'
+    - '&7&m                                            '

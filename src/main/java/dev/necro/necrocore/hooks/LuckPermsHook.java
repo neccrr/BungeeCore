@@ -67,11 +67,7 @@ public class LuckPermsHook {
         }
 
         Group group = plugin.getLuckPerms().getGroupManager().getGroup(playerGroup);
-        String groupDisplayName = group.getDisplayName();
-
-        if (groupDisplayName == null) {
-            return group.getName();
-        }
+        String groupDisplayName = group.getFriendlyName();
 
         return StringUtils.colorize(groupDisplayName);
     }

@@ -46,7 +46,7 @@ public class GotoCommand extends CommandClass {
             }
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPluginNotFound()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPlayerOnly()));
         }
     }
 

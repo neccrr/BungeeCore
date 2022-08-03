@@ -5,8 +5,7 @@ import lombok.experimental.UtilityClass;
 /**
  * Utilities for managing Proxy server instances.
  *
- * @author  <a href="https://github.com/TheBlackEntity/PlugMan">PlugManX</a> (<a href="https://github.com/TheBlackEntity">TheBlackEntity</a>)
- *
+ * @author  <a href="https://github.com/tavonkelly/BungeeServerManager">BungeeServerManager</a> (<a href="https://github.com/tavonkelly">tavonkelly</a>)
  */
 @UtilityClass
 public class ServerManager {
