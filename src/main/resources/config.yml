@@ -4,3 +4,8 @@ config-version: 1.0
 prefix: ""
 use-silent-permission-check: true
 use-confirmation: true
+
+hub-servers:
+  - hub
+  - hub1
+  - hub2
