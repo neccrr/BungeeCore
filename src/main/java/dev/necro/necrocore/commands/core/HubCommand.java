@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class HubCommand extends CommandClass {
 
-    @CommandMethod("hub")
+    @CommandMethod("hub|lobby")
     @CommandDescription("Sends you to hub servers")
     public void hubCommand(final @NonNull CommandSender sender) {
         if (sender instanceof ProxiedPlayer) {
