@@ -16,10 +16,13 @@ public class MainConfigManager {
     private final NecroCore plugin;
 
     private String prefix;
-    private boolean silent;
-    private boolean isUseConfirmation;
+    private boolean silentPermsCheck;
+    private boolean useConfirmation;
 
     private List<String> hubServers;
+
+    private long globalChatCooldown;
+    private boolean logsGlobalChatToConsole;
 
     public MainConfigManager(NecroCore plugin) {
         this.plugin = plugin;
@@ -34,10 +37,13 @@ public class MainConfigManager {
         Configuration mainConfig = configManager.getConfig("config.yml");
 
         this.prefix = StringUtils.colorize(mainConfig.getString("prefix"));
-        this.silent = mainConfig.getBoolean("use-silent-permission-check");
-        this.isUseConfirmation = mainConfig.getBoolean("use-confirmation");
+        this.silentPermsCheck = mainConfig.getBoolean("use-silent-permission-check");
+        this.useConfirmation = mainConfig.getBoolean("use-confirmation");
 
         this.hubServers = mainConfig.getStringList("hub-servers");
+
+        this.globalChatCooldown = mainConfig.getLong("globalchat-command.cooldown");
+        this.logsGlobalChatToConsole = mainConfig.getBoolean("globalchat-command.logs-globalchat-to-console");
     }
 
     /**
@@ -48,10 +54,13 @@ public class MainConfigManager {
         Configuration mainConfig = configManager.getConfig("config.yml");
 
         mainConfig.set("prefix", this.prefix);
-        mainConfig.set("use-silent-permission-check", this.silent);
-        mainConfig.set("use-confirmation", this.isUseConfirmation);
+        mainConfig.set("use-silent-permission-check", this.silentPermsCheck);
+        mainConfig.set("use-confirmation", this.useConfirmation);
 
         mainConfig.set("hub-servers", this.hubServers);
+
+        mainConfig.set("globalchat-command.cooldown", this.globalChatCooldown);
+        mainConfig.set("globalchat-command.logs-globalchat-to-console", this.logsGlobalChatToConsole);
 
         configManager.save("config.yml");
     }

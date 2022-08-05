@@ -28,6 +28,7 @@ import java.util.logging.Level;
  * @author  <a href="https://github.com/TheBlackEntity/PlugMan">PlugManX</a> (<a href="https://github.com/TheBlackEntity">TheBlackEntity</a>)
  */
 @UtilityClass
+@SuppressWarnings("deprecation")
 public class PluginManager {
 
     private final NecroCore necroCore = NecroCore.getInstance();
@@ -35,9 +36,7 @@ public class PluginManager {
     public static Map.Entry<PluginResult, PluginResult> reloadPlugin(Plugin plugin) {
         File file = plugin.getFile();
 
-
         PluginResult result1 = unloadPlugin(plugin);
-
         PluginResult result2 = loadPlugin(file);
 
         return new Map.Entry<PluginResult, PluginResult>() {
@@ -216,7 +215,7 @@ public class PluginManager {
 
                 Field allLoadersField = cl.getClass().getDeclaredField("allLoaders");
                 allLoadersField.setAccessible(true);
-                Set allLoaders = (Set) allLoadersField.get(cl);
+                Set<ClassLoader> allLoaders = (Set<ClassLoader>) allLoadersField.get(cl);
                 allLoaders.remove(cl);
 
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {

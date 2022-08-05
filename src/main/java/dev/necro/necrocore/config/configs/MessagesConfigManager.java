@@ -25,6 +25,10 @@ public class MessagesConfigManager {
 
     private List<String> infoMessage;
 
+    private String globalChatFormat;
+
+    private String privMessageSelf, privMessageTo, privMessageFrom, privMessageNoneToReply;
+
     public MessagesConfigManager(NecroCore plugin) {
         this.plugin = plugin;
         this.reload();
@@ -56,6 +60,16 @@ public class MessagesConfigManager {
 
         // Info Command messages configuration
         this.infoMessage = StringUtils.colorize(messagesConfig.getStringList("Info-Command.Info-Message"));
+
+        // Global Chat Command messages configuration
+        this.globalChatFormat = StringUtils.colorize(messagesConfig.getString("GlobalChat-Command.GlobalChat-Format"));
+
+        // Private Message messages configuration
+        this.privMessageSelf = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.Message-Self"));
+        this.privMessageTo = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.Message-To"));
+        this.privMessageFrom = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.Message-From"));
+        this.privMessageNoneToReply = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.No-One-To-Reply"));
+
     }
 
     /**
@@ -63,7 +77,7 @@ public class MessagesConfigManager {
      */
     public void save() {
         ConfigManager configManager = new ConfigManager(plugin);
-        Configuration messagesConfig = configManager.getConfig("config.yml");
+        Configuration messagesConfig = configManager.getConfig("messages.yml");
 
         // General messages configuration
         messagesConfig.set("General.Target-NotFound", this.targetNotFound);
@@ -84,6 +98,14 @@ public class MessagesConfigManager {
 
         // Info Command messages configuration
         messagesConfig.set("Info-Command.Info-Message", this.infoMessage);
+
+        // Global Chat messages configuration
+        messagesConfig.set("GlobalChat-Command.GlobalChat-Format", this.globalChatFormat);
+
+        // Private Message messages configuration
+        messagesConfig.set("PrivateMessage-Command.Message-Self", this.privMessageSelf);
+        messagesConfig.set("PrivateMessage-Command.Message-To", this.privMessageTo);
+        messagesConfig.set("PrivateMessage-Command.Message-From", this.privMessageFrom);
 
         configManager.save("messages.yml");
     }

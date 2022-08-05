@@ -56,7 +56,7 @@ public class Utils {
      */
     public boolean checkPermission(CommandSender target, String permission, boolean others, boolean showPermission, boolean silent, @Nullable String command) {
         permission = "necrocore." + permission.toLowerCase();
-        silent = plugin.getMainConfig().isSilent();
+        silent = plugin.getMainConfig().isSilentPermsCheck();
 
         if (others) {
             permission += ".others";

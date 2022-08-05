@@ -4,6 +4,7 @@ import cloud.commandframework.annotations.CommandDescription;
 import cloud.commandframework.annotations.CommandMethod;
 import dev.necro.necrocore.commands.api.CommandClass;
 import dev.necro.necrocore.utils.StringUtils;
+import dev.necro.necrocore.utils.Utils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -20,6 +21,10 @@ public class HubCommand extends CommandClass {
     @CommandDescription("Sends you to hub servers")
     public void hubCommand(final @NonNull CommandSender sender) {
         if (sender instanceof ProxiedPlayer) {
+            if (!Utils.checkPermission(sender, "commands.hub")) {
+                return;
+            }
+
             ProxiedPlayer player = (ProxiedPlayer) sender;
 
             // Randomize the hub servers
@@ -36,10 +41,10 @@ public class HubCommand extends CommandClass {
                 player.connect(hubServer);
             } else {
                 int err = 10 + random.nextInt(90);
-                player.sendMessage(new TextComponent(StringUtils.colorize("&cCan't connect you to Hub servers. If this keeps happened, Please report this to staff members. (0x00" + err + ")")));
+                player.sendMessage(new TextComponent(StringUtils.colorize(plugin.getMainConfig().getPrefix() + "&cCan't connect you to Hub servers. If this keeps happened, Please report this to staff members. (0x00" + err + ")")));
             }
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMessagesConfig().getPlayerOnly()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPlayerOnly()));
         }
     }
 }
