@@ -10,5 +10,6 @@ hub-servers:
   - hub1
   - hub2
 
-Cooldown:
-  GlobalChat: 15
+globalchat-command:
+  logs-globalchat-to-console: true
+  cooldown: 15

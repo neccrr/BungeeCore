@@ -19,7 +19,7 @@ import java.util.UUID;
 
 public class MessageCommand extends CommandClass {
 
-    @CommandMethod("message|msg|m|w|tell <target> <message>")
+    @CommandMethod("message|msg|m|whisper|w|tell <target> <message>")
     @CommandDescription("Sends private message to another player")
     public void messageCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "target", description = "The target player", suggestions = "players") String targetName, final @NonNull @Argument(value = "message", description = "The message to send") @Greedy String message) {
         if (sender instanceof ProxiedPlayer) {
