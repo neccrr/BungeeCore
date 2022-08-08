@@ -1,12 +1,2 @@
-# Necro Core  [![Java CI with Gradle](https://github.com/Cavry-Dev-Team/Core/actions/workflows/gradle.yml/badge.svg)](https://github.com/Cavry-Dev-Team/Core/actions/workflows/gradle.yml)
+# Necro Core  [![Java CI with Gradle](https://github.com/Cavry-Dev-Team/Core/actions/workflows/gradle.yml/badge.svg)](https://github.com/Cavry-Dev-Team/Core/actions/workflows/gradle.yml) [![Code Grade](https://app.codacy.com/project/badge/Grade/7990038db9cc4367a5e5a22f763ac556)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cavry-Dev-Team/Core&amp;utm_campaign=Badge_Grade)
 BungeeCord core plugin designed for Cavry Network 
-
-## Supported Versions
-
-Here is list of the supported versions
-
-| Version | Supported          |
-| ------- | ------------------ |
-| 2.0.x   | :white_check_mark: |
-| 1.0.x   | :x:                |
-| 0.0.x   | :x:                |
