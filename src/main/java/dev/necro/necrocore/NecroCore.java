@@ -14,6 +14,7 @@ import dev.necro.necrocore.utils.StringUtils;
 import lombok.Getter;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -213,6 +214,7 @@ public final class NecroCore extends Plugin {
                         "&b |_| \\_|\\___|\\___|_|  \\___/   \\_____\\___/|_|  \\___|    \n" +
                         "                                                                \n" +
                         "    &aNecro Core &ev" + this.getDescription().getVersion() + " &eby &b" + this.getDescription().getAuthor() + "\n" +
+                        "    &aRunning on " + ProxyServer.getInstance().getName() + "\n" +
                         " ");
 
         for (String s : n.split("\n")) {
