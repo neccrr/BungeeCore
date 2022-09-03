@@ -14,12 +14,6 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
-    // Annotation Command Framework (ACF) repository
-    maven {
-        name = 'aikar'
-        url = "https://repo.aikar.co/content/groups/aikar/"
-    }
-
     maven {
         url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
     }
@@ -34,10 +28,11 @@ dependencies {
     // LuckPerms API
     compileOnly 'net.luckperms:api:5.4'
     // Cloud Command Framework
-    compileOnly 'cloud.commandframework:cloud-bungee:1.7.0'
-    compileOnly 'cloud.commandframework:cloud-core:1.7.0'
-    compileOnly 'cloud.commandframework:cloud-annotations:1.7.0'
-    compileOnly 'cloud.commandframework:cloud-minecraft-extras:1.7.0'
+    compileOnly 'cloud.commandframework:cloud-bungee:1.7.1'
+    compileOnly 'cloud.commandframework:cloud-core:1.7.1'
+    compileOnly 'cloud.commandframework:cloud-annotations:1.7.1'
+    compileOnly 'cloud.commandframework:cloud-minecraft-extras:1.7.1'
+    compileOnly 'net.kyori:adventure-platform-bungeecord:4.1.2'
 }
 
 def targetJavaVersion = 8

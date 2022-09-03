@@ -157,14 +157,12 @@ public final class NecroCore extends Plugin {
                 return;
             }
 
-            for (JsonElement element : dependencies) {
+             for (JsonElement element : dependencies) {
                 JsonObject dependency = element.getAsJsonObject();
-                if (!dependency.get("name").getAsString().contains("adventure-api")) {
-                    dependencyMap.put(
-                            dependency.get("name").getAsString(),
-                            dependency.get("url").getAsString()
-                    );
-                }
+                 dependencyMap.put(
+                         dependency.get("name").getAsString(),
+                         dependency.get("url").getAsString()
+                 );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,8 +211,8 @@ public final class NecroCore extends Plugin {
                         "&b | |\\  |  __/ (__| | | (_) | | |___| (_) | | |  __/          \n" +
                         "&b |_| \\_|\\___|\\___|_|  \\___/   \\_____\\___/|_|  \\___|    \n" +
                         "                                                                \n" +
-                        "    &aNecro Core &ev" + this.getDescription().getVersion() + " &eby &b" + this.getDescription().getAuthor() + "\n" +
-                        "    &aRunning on " + ProxyServer.getInstance().getName() + "\n" +
+                        "    &bNecro Core &ev" + this.getDescription().getVersion() + " &eby &b" + this.getDescription().getAuthor() + "\n" +
+                        "    &bRunning on " + ProxyServer.getInstance().getName() + "\n" +
                         " ");
 
         for (String s : n.split("\n")) {

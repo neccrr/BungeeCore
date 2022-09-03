@@ -8,10 +8,12 @@ import cloud.commandframework.arguments.parser.StandardParameters;
 import cloud.commandframework.bungee.BungeeCommandManager;
 import cloud.commandframework.execution.CommandExecutionCoordinator;
 import cloud.commandframework.meta.CommandMeta;
+import cloud.commandframework.minecraft.extras.MinecraftHelp;
 import com.google.common.reflect.ClassPath;
 import dev.necro.necrocore.NecroCore;
 import dev.necro.necrocore.utils.Utils;
 import lombok.Getter;
+import net.kyori.adventure.platform.bungeecord.BungeeAudiences;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 
@@ -22,13 +24,15 @@ import java.util.function.Function;
 public class NecroCoreCommand {
 
     @Getter
+    private BungeeCommandManager<CommandSender> commandManager;
+    @Getter
     private final NecroCore plugin;
     @Getter
     private final Command.Builder<CommandSender> builder;
     @Getter
-    private final AnnotationParser<CommandSender> annotationParser;
+    private final MinecraftHelp<CommandSender> minecraftHelp;
     @Getter
-    private BungeeCommandManager<CommandSender> commandManager;
+    private final AnnotationParser<CommandSender> annotationParser;
 
     public NecroCoreCommand(NecroCore plugin) {
         this.plugin = plugin;
@@ -43,10 +47,19 @@ public class NecroCoreCommand {
                     mapperFunction
             );
         } catch (Exception e) {
+            this.plugin.getLogger().severe("Failed to initialize the command Command Manager");
             e.printStackTrace();
         }
 
         this.builder = this.commandManager.commandBuilder("necrocore", "core", "ncore");
+
+        // registers the custom help command
+        BungeeAudiences bungeeAudiences = BungeeAudiences.create(plugin);
+        this.minecraftHelp = new MinecraftHelp<>(
+                "/necrocore help",
+                bungeeAudiences::sender,
+                this.commandManager
+        );
 
         // registers the annotation parser
         Function<ParserParameters, CommandMeta> commandMetaFunction = it ->
@@ -68,8 +81,12 @@ public class NecroCoreCommand {
                     String query = commandContext.getOrDefault("query", null);
                     if (query == null) {
                         sender.sendMessage(new TextComponent(Utils.getPluginDescription()));
+                        return;
                     }
-                }));
+
+                    this.getMinecraftHelp().queryCommands(query, sender);
+                })
+        );
 
         this.initCommands();
     }
