@@ -1,0 +1,14 @@
+name: NecroCore
+version: '${version}'
+main: dev.necro.necrocore.NecroCore
+description: Just an simple BungeeCord core plugin
+author: Necro
+softDepends:
+  - LuckPerms
+
+commands:
+  globalchat:
+    aliases:
+      - 'gc'
+      - 'g'
+      - 'global'
