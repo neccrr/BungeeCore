@@ -22,17 +22,17 @@ public class InfoCommand extends CommandClass {
 
         TargetsCallback targets = this.getTargets(sender, targetName);
         if (targets.notifyIfEmpty()) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&cNo targets found!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + StringUtils.colorize("&cNo targets found!")));
             return;
         }
         if (targets.size() > 1) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&cYou can only check one player at a time!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + StringUtils.colorize("&cYou can only check one player at a time!")));
             return;
         }
 
         targets.stream().findFirst().ifPresent(target -> {
-            for (String result : plugin.getMessagesConfig().getInfoMessage()) {
-                sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + result
+            for (String result : plugin.getMessagesConfig().getINFO_FORMAT()) {
+                sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + result
                         .replace("{target_name}", target.getName())
                         .replace("{target_uuid}", String.valueOf(target.getUniqueId()))
                         .replace("{target_rank}", LuckPermsHook.getGroupDisplayName(target))

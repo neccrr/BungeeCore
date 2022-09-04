@@ -18,13 +18,13 @@ public class WhereAmICommand extends CommandClass {
             ProxiedPlayer player = (ProxiedPlayer) sender;
 
             if (player.getServer().getInfo() != null) {
-                player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&bYou are currently connected to &6" + player.getServer().getInfo().getName())));
+                player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + StringUtils.colorize("&bYou are currently connected to &6" + player.getServer().getInfo().getName())));
             } else {
-                player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&cCannot get the server information! Please try again later.")));
+                player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + StringUtils.colorize("&cCannot get the server information! Please try again later.")));
             }
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPlayerOnly()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPLAYER_ONLY()));
         }
     }
 }

@@ -1,47 +1,63 @@
-# General
-General:
-  Target-NotFound: "&cPlayer &l{target_name} &cnot found!"
-  Player-Only: "&cOnly player can execute this command!"
-  Reload-Successful: "&aSuccessfully reloaded the plugin!"
-  Send-To-Server: "&7Sending you to {server_name}..."
-  Send-To-Server-Successful: "&7Successfully connected to {server_name}!"
+# DO NOT TOUCH THIS!
+CONFIG_VERSION: 2.0
 
-# Plugin Manager
-Plugin-Manager:
-  Plugin-List: "&fPlugins &7(&b{plugin_amounts}&7): &b{plugin_lists}"
-  Plugin-NotFound: "&cCould not find plugin named &l{plugin_name}"
+# General Plugin Message Configuration
+GENERAL:
+  TARGET_NOT_FOUND: "&cPlayer &l{target_name} &cnot found!"
+  PLAYER_ONLY: "&cOnly player can execute this command!"
+  RELOAD_SUCCESSFUL: "&aSuccessfully reloaded the plugin!"
+  SEND_TO_SERVER: "&7Sending you to {server_name}..."
+  SEND_TO_SERVER-SUCCESSFUL: "&7Successfully connected to {server_name}!"
 
-# Ping Command
-Ping-Command:
-  Ping-Self: "&fYour ping is&7: &b{ping} &fms"
-  Ping-Other: "&b{target_name}'s &fPing is&7: &b{target_ping} &fms"
+# Commands Message Configuration
+# <> - Required
+# [] - Optional
+COMMANDS:
+  # Ping Command (/ping [target])
+  # Show your/other latency to the server
+  PING_COMMAND:
+    SELF: "&fYour ping is&7: &b{ping} &fms"
+    OTHER: "&b{target_name}'s &fPing is&7: &b{target_ping} &fms"
 
-# Global Chat Command
-GlobalChat-Command:
-  GlobalChat-Format: "&8[&3Global&8] &8[&b{player_server_name}&8] {player_prefix}{player_name}: &f{message}"
+  # Global Chat Command (/globalchat|global|gc|g <message>)
+  # Sends your message to the whole network
+  GLOBALCHAT_COMMAND:
+    FORMAT: "&8[&3Global&8] &8[&b{player_server_name}&8] {player_prefix}{player_name}: &f{message}"
 
-# Private Message Command
-PrivateMessage-Command:
-  Message-Self: "&cYou cannot message yourself!"
-  Message-To: "&bTo &7{target_prefix}{target_name}&f: {message}"
-  Message-From: "&bFrom &7{target_prefix}{target_name}&f: {message}"
-  No-One-To-Reply: "&cYou don't have anyone to reply to!"
+  # Private Message Command (/message|msg|m|whisper|w|tell <target> <message>)
+  # Sends private message to another player
+  PRIVATEMESSAGE_COMMAND:
+    SELF: "&cYou cannot message yourself!"
+    TO:  "&bTo &7{target_prefix}{target_name}&f: {message}"
+    FROM:  "&bFrom &7{target_prefix}{target_name}&f: {message}"
+    NO_ONE_TO_REPLY: "&cYou don't have anyone to reply to!"
 
-# Goto Command
-Goto-Command:
-  Goto-Connected: "&fYou have been connected to &b{target_name}'s &fserver! &b({target_server_name})"
-  Goto-SameServer: "&fYou're already on &b{target_name}'s &fserver! &b({target_server_name})"
+  # Warp Command (/warp|goto <target>)
+  # Sends you to player's current server
+  WARP_COMMAND:
+    CONNECT: "&fYou have been connected to &b{target_name}'s &fserver! &b({target_server_name})"
+    SAME_SERVER: "&fYou're already on &b{target_name}'s &fserver! &b({target_server_name})"
 
-# Info Command
-Info-Command:
-  Info-Message:
-    - '&7&m                                            '
-    - '&fPlayer: &b{target_suffix}{target_name}'
-    - '&fRank: &b{target_rank}'
-    - '&fUUID: &b{target_uuid}'
-    - '&fServer: &b{target_server_name}'
-    - '&fPing: &b{target_ping}'
-    - '&fIP: &b{target_ip}'
-    - '&fVersion: &b{target_client_version}'
-    - '&fProtocol: &b{target_protocolNumber}'
-    - '&7&m                                            '
+  # Info Command (/info|playerinfo|dox <target>)
+  # Gets some information about the target | "doxing btw" -jiternos
+  INFO_COMMAND:
+    FORMAT:
+      - "&7&m                                            "
+      - "&fPlayer: &b{target_suffix}{target_name}"
+      - "&fRank: &b{target_rank}"
+      - "&fUUID: &b{target_uuid}"
+      - "&fServer: &b{target_server_name}"
+      - "&fPing: &b{target_ping}"
+      - "&fIP: &b{target_ip}"
+      - "&fVersion: &b{target_client_version}"
+      - "&fProtocol: &b{target_protocolNumber}"
+      - "&7&m                                            "
+
+  # Plugin Manager Command
+  # (/necrocore pluginmanager|pm list) | Lists all loaded plugin
+  # (/necrocore pluginmanager|pm load <pluginName>) | Loads a plugin
+  # (/necrocore pluginmanager|pm unload <pluginName>) | Unloads a plugin
+  # (/necrocore pluginmanager|pm reload <pluginName>) | Reloads a plugin
+  PLUGIN_MANAGER_COMMAND:
+    LIST: "&fPlugins &7(&b{plugin_amounts}&7): &b{plugin_lists}"
+    NOT_FOUND: "&cCould not find plugin named &l{plugin_name}"

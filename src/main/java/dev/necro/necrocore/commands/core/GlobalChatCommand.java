@@ -22,7 +22,7 @@ public class GlobalChatCommand extends CommandClass {
     Map<String, Long> cooldown = new HashMap<>();
 
     @CommandMethod("globalchat|gchat|gc|g <message>")
-    @CommandDescription("Sends message to the whole server")
+    @CommandDescription("Sends your message to the whole network")
     public void globalChatCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "message", description = "The text") @Greedy String message) {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer player = (ProxiedPlayer) sender;
@@ -40,26 +40,26 @@ public class GlobalChatCommand extends CommandClass {
                 }
             }
 
-            cooldown.put(player.getName(), System.currentTimeMillis() + (plugin.getMainConfig().getGlobalChatCooldown() * 1000));
+            cooldown.put(player.getName(), System.currentTimeMillis() + (plugin.getMainConfig().getGLOBALCHAT_COOLDOWN() * 1000));
 
             for (final ProxiedPlayer target : ProxyServer.getInstance().getPlayers()) {
                 if (target.hasPermission("necrocore.globalchat.read")) {
-                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + this.getFormattedGlobalChat(player, message)));
+                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + this.getFormattedGlobalChat(player, message)));
                 }
             }
 
             // Logs to console
-            if (plugin.getMainConfig().isLogsGlobalChatToConsole()) {
+            if (plugin.getMainConfig().isGLOBALCHAT_LOGS_TO_CONSOLE()) {
                 ProxyServer.getInstance().getConsole().sendMessage(new TextComponent(this.getFormattedGlobalChat(player, message)));
             }
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPlayerOnly()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPLAYER_ONLY()));
         }
     }
 
     private String getFormattedGlobalChat(ProxiedPlayer player, String message) {
-        return plugin.getMessagesConfig().getGlobalChatFormat()
+        return plugin.getMessagesConfig().getGLOBALCHAT_FORMAT()
                 .replace("{player_name}", player.getName())
                 .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
                 .replace("{player_suffix}", LuckPermsHook.getSuffix(player))

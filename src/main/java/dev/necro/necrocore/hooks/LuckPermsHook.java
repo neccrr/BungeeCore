@@ -25,7 +25,6 @@ public class LuckPermsHook {
     public String getPrefix(ProxiedPlayer player) {
         CachedMetaData playerMetaData = plugin.getLuckPerms().getPlayerAdapter(ProxiedPlayer.class).getMetaData(player);
         String prefix = playerMetaData.getPrefix();
-
         if (prefix == null) {
             return StringUtils.colorize("&7");
         }
@@ -43,7 +42,6 @@ public class LuckPermsHook {
     public String getSuffix(ProxiedPlayer player) {
         CachedMetaData playerMetaData = plugin.getLuckPerms().getPlayerAdapter(ProxiedPlayer.class).getMetaData(player);
         String suffix = playerMetaData.getSuffix();
-
         if (suffix == null) {
             return StringUtils.colorize("&7");
         }
@@ -61,7 +59,6 @@ public class LuckPermsHook {
     public String getGroupDisplayName(ProxiedPlayer player) {
         CachedMetaData playerMetaData = plugin.getLuckPerms().getPlayerAdapter(ProxiedPlayer.class).getMetaData(player);
         String playerGroup = playerMetaData.getPrimaryGroup();
-
         if (playerGroup == null) {
             return "default";
         }

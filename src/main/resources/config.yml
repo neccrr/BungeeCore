@@ -1,15 +1,25 @@
 # DO NOT TOUCH THIS
-config-version: 1.0
+CONFIG_VERSION: 2.0
 
-prefix: ""
-use-silent-permission-check: true
-use-confirmation: true
+# General Plugin Configuration
+PREFIX: ""
+SILENT_PERMISSION_CHECK: true
+USE_COMMAND_CONFIRMATION: false
 
-hub-servers:
-  - hub
-  - hub1
-  - hub2
+# Commands Configuration
+# <> - Required
+# [] - Optional
+COMMANDS:
+  # Global Chat Command (/globalchat|global|gc|g <message>)
+  # Sends your message to the whole network
+  GLOBALCHAT_COMMAND:
+    COOLDOWN: 15
+    LOGS_GLOBALCHAT_TO_CONSOLE: true
 
-globalchat-command:
-  logs-globalchat-to-console: true
-  cooldown: 15
+  # Hub Command (/hub)
+  # Sends you to hub servers
+  HUB_COMMAND:
+    HUB_SERVERS:
+      - hub
+      - hub1
+      - hub2

@@ -10,13 +10,13 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 public class ReloadCommand extends CommandClass {
 
     @CommandMethod("necrocore reload")
-    @CommandDescription("Reloads the plugin's configuration and messages")
+    @CommandDescription("Reloads the plugin's main configuration and message configuration")
     public void reloadCommand(final @NonNull CommandSender sender) {
         // Reloads the configuration and messages file
         plugin.getMainConfig().reload();
         plugin.getMessagesConfig().reload();
 
         // Tell the command sender that the files have been reloaded
-        sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getReloadSuccessful()));
+        sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getRELOAD_SUCCESSFUL()));
     }
 }

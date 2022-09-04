@@ -14,12 +14,10 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
-    maven {
-        url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-    }
 }
 
 dependencies {
+    // Lombok Annotations
     implementation 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
@@ -56,7 +54,7 @@ processResources {
     inputs.properties props
     expand props
     filteringCharset 'UTF-8'
-    filesMatching('bungee.yml') {
+    filesMatching('plugin.yml') {
         expand props
     }
 }

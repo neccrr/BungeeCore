@@ -12,11 +12,11 @@ import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
-public class GotoCommand extends CommandClass {
+public class WarpCommand extends CommandClass {
 
-    @CommandMethod("goto <target>")
+    @CommandMethod("warp|goto <target>")
     @CommandDescription("Sends you to player's current server")
-    public void gotoCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "target", description = "The target player", suggestions = "players") String targetName) {
+    public void warpCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "target", description = "The target player", suggestions = "players") String targetName) {
         if (sender instanceof ProxiedPlayer) {
             if (!Utils.checkPermission(sender, "commands.goto")) {
                 return;
@@ -26,7 +26,7 @@ public class GotoCommand extends CommandClass {
             ProxiedPlayer target = ProxyServer.getInstance().getPlayer(targetName);
 
             if (target == null) {
-                player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getTargetNotFound()
+                player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getTARGET_NOT_FOUND()
                         .replace("{target_name}", targetName)));
             } else {
                 ServerInfo targetServer = target.getServer().getInfo();
@@ -34,19 +34,19 @@ public class GotoCommand extends CommandClass {
 
                 if (playerServer != targetServer)  {
                     player.connect(targetServer);
-                    player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getGotoConnected()
+                    player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getWARP_CONNECT()
                             .replace("{target_name}", target.getName())
                             .replace("{target_server_name}", target.getServer().getInfo().getName())));
                 } else {
                     // Already on same server exception
-                    player.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getGotoSameServer()
+                    player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getWARP_SAME_SERVER()
                             .replace("{target_name}", target.getName())
                             .replace("{target_server_name}", target.getServer().getInfo().getName())));
                 }
             }
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPlayerOnly()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPLAYER_ONLY()));
         }
     }
 

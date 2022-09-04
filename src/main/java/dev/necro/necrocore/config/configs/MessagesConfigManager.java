@@ -14,23 +14,25 @@ import java.util.List;
 public class MessagesConfigManager {
 
     private final NecroCore plugin;
+    private final ConfigManager configManager;
 
-    private String pingSelf, pingOther;
+    private String TARGET_NOT_FOUND, RELOAD_SUCCESSFUL, PLAYER_ONLY;
 
-    private String targetNotFound, reloadSuccessful, playerOnly;
+    private String PING_SELF, PING_OTHER;
 
-    private String pluginList, pluginNotFound;
+    private String PLUGIN_MANAGER_LIST, PLUGIN_MANAGER_NOT_FOUND;
 
-    private String gotoConnected, gotoSameServer;
+    private String WARP_CONNECT, WARP_SAME_SERVER;
 
-    private List<String> infoMessage;
+    private List<String> INFO_FORMAT;
 
-    private String globalChatFormat;
+    private String GLOBALCHAT_FORMAT;
 
-    private String privMessageSelf, privMessageTo, privMessageFrom, privMessageNoneToReply;
+    private String PRIVATEMESSAGE_SELF, PRIVATEMESSAGE_TO, PRIVATEMESSAGE_FORM, PRIVATEMESSAGE_NO_ONE_TO_REPLY;
 
     public MessagesConfigManager(NecroCore plugin) {
         this.plugin = plugin;
+        this.configManager = new ConfigManager(plugin);
         this.reload();
     }
 
@@ -38,74 +40,94 @@ public class MessagesConfigManager {
      * Reload the messages' configuration file
      */
     public void reload() {
-        ConfigManager configManager = new ConfigManager(plugin);
         Configuration messagesConfig = configManager.getConfig("messages.yml");
 
-        // General plugin messages configuration
-        this.targetNotFound = StringUtils.colorize(messagesConfig.getString("General.Target-NotFound"));
-        this.reloadSuccessful = StringUtils.colorize(messagesConfig.getString("General.Reload-Successful"));
-        this.playerOnly = StringUtils.colorize(messagesConfig.getString("General.Player-Only"));
+        // General Plugin Message Configuration
+        // # <> - Required
+        // # [] - Optional
+        this.TARGET_NOT_FOUND = StringUtils.colorize(messagesConfig.getString("GENERAL.TARGET_NOT_FOUND"));
+        this.PLAYER_ONLY = StringUtils.colorize(messagesConfig.getString("GENERAL.PLAYER_ONLY"));
+        this.RELOAD_SUCCESSFUL = StringUtils.colorize(messagesConfig.getString("GENERAL.RELOAD_SUCCESSFUL"));
 
-        // Ping Command messages configuration
-        this.pingSelf = StringUtils.colorize(messagesConfig.getString("Ping-Command.Ping-Self"));
-        this.pingOther = StringUtils.colorize(messagesConfig.getString("Ping-Command.Ping-Other"));
+        // Ping Command (/ping [target])
+        // # Show your/other latency to the server
+        this.PING_SELF = StringUtils.colorize(messagesConfig.getString("COMMANDS.PING_COMMAND.SELF"));
+        this.PING_OTHER = StringUtils.colorize(messagesConfig.getString("COMMANDS.PING_COMMAND.OTHER"));
 
-        // Goto Command Messages configuration
-        this.gotoConnected = StringUtils.colorize(messagesConfig.getString("Goto-Command.Goto-Connected"));
-        this.gotoSameServer = StringUtils.colorize(messagesConfig.getString("Goto-Command.Goto-SameServer"));
+        // Global Chat Command (/globalchat|global|gc|g <message>)
+        // # Sends your message to the whole network
+        this.GLOBALCHAT_FORMAT = StringUtils.colorize(messagesConfig.getString("COMMANDS.GLOBALCHAT_COMMAND.FORMAT"));
 
-        // Plugin Manager messages configuration
-        this.pluginList = StringUtils.colorize(messagesConfig.getString("Plugin-Manager.Plugin-List"));
-        this.pluginNotFound = StringUtils.colorize(messagesConfig.getString("Plugin-Manager.Plugin-NotFound"));
+        // Private Message Command (/message|msg|m|whisper|w|tell <target> <message>)
+        // # Sends private message to another player
+        this.PRIVATEMESSAGE_SELF = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.SELF"));
+        this.PRIVATEMESSAGE_TO = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.TO"));
+        this.PRIVATEMESSAGE_FORM = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.FROM"));
+        this.PRIVATEMESSAGE_NO_ONE_TO_REPLY = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.NO_ONE_TO_REPLY"));
 
-        // Info Command messages configuration
-        this.infoMessage = StringUtils.colorize(messagesConfig.getStringList("Info-Command.Info-Message"));
+        // Warp Command (/warp|goto <target>)
+        // # Sends you to player's current server
+        this.WARP_CONNECT = StringUtils.colorize(messagesConfig.getString("COMMANDS.WARP_COMMAND.CONNECT"));
+        this.WARP_SAME_SERVER = StringUtils.colorize(messagesConfig.getString("COMMANDS.WARP_COMMAND.SAME_SERVER"));
 
-        // Global Chat Command messages configuration
-        this.globalChatFormat = StringUtils.colorize(messagesConfig.getString("GlobalChat-Command.GlobalChat-Format"));
+        // Info Command (/info|playerinfo|dox <target>)
+        // # Gets some information about the target | "doxing btw" -jiternos
+        this.INFO_FORMAT = StringUtils.colorize(messagesConfig.getStringList("COMMANDS.INFO_COMMAND.FORMAT"));
 
-        // Private Message messages configuration
-        this.privMessageSelf = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.Message-Self"));
-        this.privMessageTo = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.Message-To"));
-        this.privMessageFrom = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.Message-From"));
-        this.privMessageNoneToReply = StringUtils.colorize(messagesConfig.getString("PrivateMessage-Command.No-One-To-Reply"));
-
+        // Plugin Manager Command
+        // # (/necrocore pluginmanager|pm list) | Lists all loaded plugin
+        // # (/necrocore pluginmanager|pm load <pluginName>) | Loads a plugin
+        // # (/necrocore pluginmanager|pm unload <pluginName>) | Unloads a plugin
+        // # (/necrocore pluginmanager|pm reload <pluginName>) | Reloads a plugin
+        this.PLUGIN_MANAGER_LIST = StringUtils.colorize(messagesConfig.getString("COMMANDS.PLUGIN_MANAGER_COMMAND.LIST"));
+        this.PLUGIN_MANAGER_NOT_FOUND = StringUtils.colorize(messagesConfig.getString("COMMANDS.PLUGIN_MANAGER_COMMAND.NOT_FOUND"));
     }
 
     /**
      * Save the messages' configuration file
      */
     public void save() {
-        ConfigManager configManager = new ConfigManager(plugin);
         Configuration messagesConfig = configManager.getConfig("messages.yml");
 
-        // General messages configuration
-        messagesConfig.set("General.Target-NotFound", this.targetNotFound);
-        messagesConfig.set("General.Reload-Successful", this.reloadSuccessful);
-        messagesConfig.set("General.Player-Only", this.playerOnly);
+        // General Plugin Message Configuration
+        // # <> - Required
+        // # [] - Optional
+        messagesConfig.set("GENERAL.TARGET_NOT_FOUND", this.TARGET_NOT_FOUND);
+        messagesConfig.set("GENERAL.PLAYER_ONLY", this.PLAYER_ONLY);
+        messagesConfig.set("GENERAL.RELOAD_SUCCESSFUL", this.RELOAD_SUCCESSFUL);
 
-        // Ping Command Messages configuration
-        messagesConfig.set("Ping-Command.Ping-Other", this.pingSelf);
-        messagesConfig.set("Ping-Command.Ping-Other", this.pingOther);
+        // Ping Command (/ping [target])
+        // # Show your/other latency to the server
+        messagesConfig.set("COMMANDS.PING_COMMAND.SELF", this.PING_SELF);
+        messagesConfig.set("COMMANDS.PING_COMMAND.OTHER", this.PING_OTHER);
 
-        // Goto Command Messages configuration
-        messagesConfig.set("Goto-Command.Goto-Connected", this.gotoConnected);
-        messagesConfig.set("Goto-Command.Goto-SameServer", this.gotoSameServer);
+        // Global Chat Command (/globalchat|global|gc|g <message>)
+        // # Sends your message to the whole network
+        messagesConfig.set("COMMANDS.GLOBALCHAT_COMMAND.FORMAT", this.GLOBALCHAT_FORMAT);
 
-        // Plugin Manager messages configuration
-        messagesConfig.set("Plugin-Manager.Plugin-List", this.pluginList);
-        messagesConfig.set("Plugin-Manager.Plugin-NotFound", this.pluginNotFound);
+        // Private Message Command (/message|msg|m|whisper|w|tell <target> <message>)
+        // # Sends private message to another player
+        messagesConfig.set("COMMANDS.PRIVATEMESSAGE_COMMAND.SELF", this.PRIVATEMESSAGE_SELF);
+        messagesConfig.set("COMMANDS.PRIVATEMESSAGE_COMMAND.TO", this.PRIVATEMESSAGE_TO);
+        messagesConfig.set("COMMANDS.PRIVATEMESSAGE_COMMAND.FROM", this.PRIVATEMESSAGE_FORM);
+        messagesConfig.set("COMMANDS.PRIVATEMESSAGE_COMMAND.NO_ONE_TO_REPLY", this.PRIVATEMESSAGE_NO_ONE_TO_REPLY);
 
-        // Info Command messages configuration
-        messagesConfig.set("Info-Command.Info-Message", this.infoMessage);
+        // Warp Command (/warp|goto <target>)
+        // # Sends you to player's current server
+        messagesConfig.set("COMMANDS.WARP_COMMAND.CONNECT", this.WARP_CONNECT);
+        messagesConfig.set("COMMANDS.WARP_COMMAND.SAME_SERVER", this.WARP_SAME_SERVER);
 
-        // Global Chat messages configuration
-        messagesConfig.set("GlobalChat-Command.GlobalChat-Format", this.globalChatFormat);
+        // Info Command (/info|playerinfo|dox <target>)
+        // # Gets some information about the target | "doxing btw" -jiternos
+        messagesConfig.set("COMMANDS.INFO_COMMAND.FORMAT", this.INFO_FORMAT);
 
-        // Private Message messages configuration
-        messagesConfig.set("PrivateMessage-Command.Message-Self", this.privMessageSelf);
-        messagesConfig.set("PrivateMessage-Command.Message-To", this.privMessageTo);
-        messagesConfig.set("PrivateMessage-Command.Message-From", this.privMessageFrom);
+        // Plugin Manager Command
+        // # (/necrocore pluginmanager|pm list) | Lists all loaded plugin
+        // # (/necrocore pluginmanager|pm load <pluginName>) | Loads a plugin
+        // # (/necrocore pluginmanager|pm unload <pluginName>) | Unloads a plugin
+        // # (/necrocore pluginmanager|pm reload <pluginName>) | Reloads a plugin
+        messagesConfig.set("COMMANDS.PLUGIN_MANAGER_COMMAND.LIST", this.PLUGIN_MANAGER_LIST);
+        messagesConfig.set("COMMANDS.PLUGIN_MANAGER_COMMAND.NOT_FOUND", this.PLUGIN_MANAGER_NOT_FOUND);
 
         configManager.save("messages.yml");
     }

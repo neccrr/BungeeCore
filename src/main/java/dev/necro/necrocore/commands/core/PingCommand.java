@@ -25,7 +25,7 @@ public class PingCommand extends CommandClass {
             ProxiedPlayer player = (ProxiedPlayer) sender;
             int ping = player.getPing();
 
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPingSelf()
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPING_SELF()
                     .replace("{ping}", String.valueOf(ping))));
         } else {
             pingOtherCommand(sender, "");
@@ -55,17 +55,17 @@ public class PingCommand extends CommandClass {
         TargetsCallback targets = this.getTargets(sender, targetName);
 
         if (targets.notifyIfEmpty()) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&cNo targets found!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + StringUtils.colorize("&cNo targets found!")));
             return;
         }
         if (targets.size() > 1) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + StringUtils.colorize("&cYou can only check one player at a time!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + StringUtils.colorize("&cYou can only check one player at a time!")));
             return;
         }
 
         targets.stream().findFirst().ifPresent(target -> {
             int targetPing = target.getPing();
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPrefix() + plugin.getMessagesConfig().getPingOther()
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPING_OTHER()
                     .replace("{target_ping}", String.valueOf(targetPing))
                     .replace("{target_name}", target.getName())));
         });

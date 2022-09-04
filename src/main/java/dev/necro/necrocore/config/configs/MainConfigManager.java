@@ -14,18 +14,20 @@ import java.util.List;
 public class MainConfigManager {
 
     private final NecroCore plugin;
+    private final ConfigManager configManager;
 
-    private String prefix;
-    private boolean silentPermsCheck;
-    private boolean useConfirmation;
+    private String PREFIX;
+    private boolean SILENT_PERMISSION_CHECK;
+    private boolean USE_COMMAND_CONFIRMATION;
 
-    private List<String> hubServers;
+    private long GLOBALCHAT_COOLDOWN;
+    private boolean GLOBALCHAT_LOGS_TO_CONSOLE;
 
-    private long globalChatCooldown;
-    private boolean logsGlobalChatToConsole;
+    private List<String> HUB_SERVERS;
 
     public MainConfigManager(NecroCore plugin) {
         this.plugin = plugin;
+        this.configManager = new ConfigManager(plugin);
         this.reload();
     }
 
@@ -33,34 +35,46 @@ public class MainConfigManager {
      * Reloads the main configuration file
      */
     public void reload() {
-        ConfigManager configManager = new ConfigManager(plugin);
         Configuration mainConfig = configManager.getConfig("config.yml");
 
-        this.prefix = StringUtils.colorize(mainConfig.getString("prefix"));
-        this.silentPermsCheck = mainConfig.getBoolean("use-silent-permission-check");
-        this.useConfirmation = mainConfig.getBoolean("use-confirmation");
+        // General Plugin Configuration
+        // # <> - Required
+        // # [] - Optional
+        this.PREFIX = StringUtils.colorize(mainConfig.getString("PREFIX"));
+        this.SILENT_PERMISSION_CHECK = mainConfig.getBoolean("SILENT_PERMISSION_CHECK");
+        this.USE_COMMAND_CONFIRMATION = mainConfig.getBoolean("USE_COMMAND_CONFIRMATION");
 
-        this.hubServers = mainConfig.getStringList("hub-servers");
+        // Global Chat Command (/globalchat|global|gc|g <message>)
+        // # Sends your message to the whole network
+        this.GLOBALCHAT_COOLDOWN = mainConfig.getLong("COMMANDS.GLOBALCHAT_COMMAND.COOLDOWN");
+        this.GLOBALCHAT_LOGS_TO_CONSOLE = mainConfig.getBoolean("COMMANDS.GLOBALCHAT_COMMAND.LOGS_GLOBALCHAT_TO_CONSOLE");
 
-        this.globalChatCooldown = mainConfig.getLong("globalchat-command.cooldown");
-        this.logsGlobalChatToConsole = mainConfig.getBoolean("globalchat-command.logs-globalchat-to-console");
+        // Hub Command (/hub)
+        // # Sends you to hub servers
+        this.HUB_SERVERS = mainConfig.getStringList("COMMANDS.HUB_COMMAND.HUB_SERVERS");
     }
 
     /**
      * Save the main configuration file
      */
     public void save() {
-        ConfigManager configManager = new ConfigManager(plugin);
         Configuration mainConfig = configManager.getConfig("config.yml");
 
-        mainConfig.set("prefix", this.prefix);
-        mainConfig.set("use-silent-permission-check", this.silentPermsCheck);
-        mainConfig.set("use-confirmation", this.useConfirmation);
+        // General Plugin Configuration
+        // # <> - Required
+        // # [] - Optional
+        mainConfig.set("PREFIX", this.PREFIX);
+        mainConfig.set("SILENT_PERMISSION_CHECK", this.SILENT_PERMISSION_CHECK);
+        mainConfig.set("USE_COMMAND_CONFIRMATION", this.USE_COMMAND_CONFIRMATION);
 
-        mainConfig.set("hub-servers", this.hubServers);
+        // Global Chat Command (/globalchat|global|gc|g <message>)
+        // # Sends your message to the whole network
+        mainConfig.set("COMMANDS.GLOBALCHAT_COMMAND.COOLDOWN", this.GLOBALCHAT_COOLDOWN);
+        mainConfig.set("COMMANDS.GLOBALCHAT_COMMAND.LOGS_GLOBALCHAT_TO_CONSOLE", this.GLOBALCHAT_LOGS_TO_CONSOLE);
 
-        mainConfig.set("globalchat-command.cooldown", this.globalChatCooldown);
-        mainConfig.set("globalchat-command.logs-globalchat-to-console", this.logsGlobalChatToConsole);
+        // Hub Command (/hub)
+        // # Sends you to hub servers
+        mainConfig.set("COMMANDS.HUB_COMMAND.HUB_SERVERS", this.HUB_SERVERS);
 
         configManager.save("config.yml");
     }
