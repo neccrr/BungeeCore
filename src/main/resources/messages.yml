@@ -22,7 +22,7 @@ COMMANDS:
   # Global Chat Command (/globalchat|global|gc|g <message>)
   # Sends your message to the whole network
   GLOBALCHAT_COMMAND:
-    FORMAT: "&8[&3Global&8] &8[&b{player_server_name}&8] {player_prefix}{player_name}: &f{message}"
+    FORMAT: "&8[&3GLOBAL&8] &8[&b{player_server_name}&8] {player_prefix}{player_name}: &f{message}"
 
   # Private Message Command (/message|msg|m|whisper|w|tell <target> <message>)
   # Sends private message to another player

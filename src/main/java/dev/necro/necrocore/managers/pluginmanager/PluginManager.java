@@ -33,25 +33,25 @@ public class PluginManager {
 
     private final NecroCore necroCore = NecroCore.getInstance();
 
-    public static Map.Entry<PluginResult, PluginResult> reloadPlugin(Plugin plugin) {
+    public static Map.Entry<PluginManagerResult, PluginManagerResult> reloadPlugin(Plugin plugin) {
         File file = plugin.getFile();
 
-        PluginResult result1 = unloadPlugin(plugin);
-        PluginResult result2 = loadPlugin(file);
+        PluginManagerResult result1 = unloadPlugin(plugin);
+        PluginManagerResult result2 = loadPlugin(file);
 
-        return new Map.Entry<PluginResult, PluginResult>() {
+        return new Map.Entry<PluginManagerResult, PluginManagerResult>() {
             @Override
-            public PluginResult getKey() {
+            public PluginManagerResult getKey() {
                 return result1;
             }
 
             @Override
-            public PluginResult getValue() {
+            public PluginManagerResult getValue() {
                 return result2;
             }
 
             @Override
-            public PluginResult setValue(PluginResult value) {
+            public PluginManagerResult setValue(PluginManagerResult value) {
                 return result2;
             }
         };
@@ -62,7 +62,7 @@ public class PluginManager {
      *
      * @param file plugin's name
      */
-    public static PluginResult loadPlugin(File file) {
+    public static PluginManagerResult loadPlugin(File file) {
         net.md_5.bungee.api.plugin.PluginManager pluginManager = ProxyServer.getInstance().getPluginManager();
 
         Field yamlField;
@@ -71,7 +71,7 @@ public class PluginManager {
             yamlField.setAccessible(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-            return new PluginResult("&cError while trying to load plugin: &4Could not load field 'yaml'&c, see console for more info!", false);
+            return new PluginManagerResult("&cError while trying to load plugin: &4Could not load field 'yaml'&c, see console for more info!", false);
         }
 
         Yaml yaml;
@@ -79,7 +79,7 @@ public class PluginManager {
             yaml = (Yaml) yamlField.get(pluginManager);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            return new PluginResult("&cError while trying to load plugin: &4Could not get field 'yaml'&c, see console for more info!", false);
+            return new PluginManagerResult("&cError while trying to load plugin: &4Could not get field 'yaml'&c, see console for more info!", false);
         }
 
         Field toLoadField;
@@ -88,7 +88,7 @@ public class PluginManager {
             toLoadField.setAccessible(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-            return new PluginResult("&cError while trying to load plugin: &4Could not load field 'toLoad'&c, see console for more info!", false);
+            return new PluginManagerResult("&cError while trying to load plugin: &4Could not load field 'toLoad'&c, see console for more info!", false);
         }
 
         HashMap<String, PluginDescription> toLoad;
@@ -96,7 +96,7 @@ public class PluginManager {
             toLoad = (HashMap<String, PluginDescription>) toLoadField.get(pluginManager);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            return new PluginResult("&cError while trying to load plugin: &4Could not get field 'toLoad'&c, see console for more info!", false);
+            return new PluginManagerResult("&cError while trying to load plugin: &4Could not get field 'toLoad'&c, see console for more info!", false);
         }
 
         if (toLoad == null) {
@@ -113,7 +113,7 @@ public class PluginManager {
                 }
 
                 if (pdf == null) {
-                    return new PluginResult("&cError while trying to load plugin: &4Plugin does not contain plugin.yml or bungee.yml!", false);
+                    return new PluginManagerResult("&cError while trying to load plugin: &4Plugin does not contain plugin.yml or bungee.yml!", false);
                 }
 
                 // Preconditions.checkNotNull(pdf, "Plugin must have a plugin.yml or bungee.yml");
@@ -121,15 +121,15 @@ public class PluginManager {
                     desc = yaml.loadAs(in, PluginDescription.class);
 
                     if (desc.getName() == null) {
-                        return new PluginResult("&cError while trying to load plugin: &4Plugin does not contain a name in it's plugin.yml/bungee.yml!", false);
+                        return new PluginManagerResult("&cError while trying to load plugin: &4Plugin does not contain a name in it's plugin.yml/bungee.yml!", false);
                     }
 
                     if (desc.getMain() == null) {
-                        return new PluginResult("&cError while trying to load plugin: &4Plugin does not contain a main class in it's plugin.yml/bungee.yml!", false);
+                        return new PluginManagerResult("&cError while trying to load plugin: &4Plugin does not contain a main class in it's plugin.yml/bungee.yml!", false);
                     }
 
                     if (pluginManager.getPlugin(desc.getName()) != null) {
-                        return new PluginResult("&cError while trying to load plugin: &4A plugin named '" + desc.getName() + "' is already loaded!", false);
+                        return new PluginManagerResult("&cError while trying to load plugin: &4A plugin named '" + desc.getName() + "' is already loaded!", false);
                     }
 
                     desc.setFile(file);
@@ -143,14 +143,14 @@ public class PluginManager {
 
                 Plugin plugin = pluginManager.getPlugin(desc.getName());
                 if (plugin == null)
-                    return new PluginResult("&cError while trying to load plugin: &4An unknown error occurred&c, see console for more info!", false);
+                    return new PluginManagerResult("&cError while trying to load plugin: &4An unknown error occurred&c, see console for more info!", false);
                 plugin.onEnable();
             } catch (Exception ex) {
                 ProxyServer.getInstance().getLogger().log(Level.WARNING, "Could not load plugin from file " + file, ex);
-                return new PluginResult("&cError while trying to load plugin: &4An unknown error occurred&c, see console for more info!", false);
+                return new PluginManagerResult("&cError while trying to load plugin: &4An unknown error occurred&c, see console for more info!", false);
             }
         }
-        return new PluginResult("&7Plugin was loaded successfully!", true);
+        return new PluginManagerResult("&7Plugin was loaded successfully!", true);
     }
 
     /**
@@ -158,7 +158,7 @@ public class PluginManager {
      *
      * @param plugin plugin's name
      */
-    public static PluginResult unloadPlugin(Plugin plugin) {
+    public static PluginManagerResult unloadPlugin(Plugin plugin) {
         boolean exception = false;
         net.md_5.bungee.api.plugin.PluginManager pluginManager = ProxyServer.getInstance().getPluginManager();
         try {
@@ -185,7 +185,7 @@ public class PluginManager {
             pluginsField.setAccessible(true);
         } catch (NoSuchFieldException e) {
             e.printStackTrace();
-            return new PluginResult("&cError while trying to unload plugin: &4Could not load field 'plugins'&c, see console for more info!", false);
+            return new PluginManagerResult("&cError while trying to unload plugin: &4Could not load field 'plugins'&c, see console for more info!", false);
         }
 
         Map<String, Plugin> plugins;
@@ -194,7 +194,7 @@ public class PluginManager {
             plugins = (Map<String, Plugin>) pluginsField.get(pluginManager);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
-            return new PluginResult("&cError while trying to unload plugin: &4Could not get field 'plugins'&c, see console for more info!", false);
+            return new PluginManagerResult("&cError while trying to unload plugin: &4Could not get field 'plugins'&c, see console for more info!", false);
         }
 
         plugins.remove(plugin.getDescription().getName());
@@ -202,7 +202,6 @@ public class PluginManager {
         ClassLoader cl = plugin.getClass().getClassLoader();
 
         if (cl instanceof URLClassLoader) {
-
             try {
 
                 Field pluginField = cl.getClass().getDeclaredField("plugin");
@@ -221,7 +220,7 @@ public class PluginManager {
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
                 necroCore.getLogger().log(Level.SEVERE, null, ex);
 
-                return new PluginResult("&cError while trying to unload plugin: &4Could not unload ClassLoader&c, see console for more info!", false);
+                return new PluginManagerResult("&cError while trying to unload plugin: &4Could not unload ClassLoader&c, see console for more info!", false);
             }
 
             try {
@@ -229,18 +228,17 @@ public class PluginManager {
                 ((URLClassLoader) cl).close();
             } catch (IOException ex) {
                 necroCore.getLogger().log(Level.SEVERE, null, ex);
-                return new PluginResult("&cError while trying to unload plugin: &4Could not close ClassLoader&c, see console for more info!", false);
+                return new PluginManagerResult("&cError while trying to unload plugin: &4Could not close ClassLoader&c, see console for more info!", false);
             }
-
         }
 
         // Will not work on processes started with the -XX:+DisableExplicitGC flag, but let's try it anyway.
         // This tries to get around the issue where Windows refuse to unlock jar files that were previously loaded into the JVM.
         System.gc();
         if (exception) {
-            return new PluginResult("&cAn unknown error occurred while unloading, see console for more info!", false);
+            return new PluginManagerResult("&cAn unknown error occurred while unloading, see console for more info!", false);
         } else {
-            return new PluginResult("&7Plugin was unloaded successfully!", true);
+            return new PluginManagerResult("&7Plugin was unloaded successfully!", true);
         }
     }
 

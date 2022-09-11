@@ -6,6 +6,7 @@ import cloud.commandframework.annotations.CommandMethod;
 import cloud.commandframework.annotations.specifier.Greedy;
 import dev.necro.necrocore.commands.api.CommandClass;
 import dev.necro.necrocore.managers.pluginmanager.PluginManager;
+import dev.necro.necrocore.managers.pluginmanager.PluginManagerResult;
 import dev.necro.necrocore.utils.Utils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
@@ -13,6 +14,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.File;
+import java.util.Map;
 
 public class PluginManagerCommand extends CommandClass {
 
@@ -41,7 +43,8 @@ public class PluginManagerCommand extends CommandClass {
                     .replace("{plugin_name}", file.toString())));
         }
 
-        PluginManager.loadPlugin(file);
+        PluginManagerResult pluginResult = PluginManager.loadPlugin(file);
+        sender.sendMessage(new TextComponent(pluginResult.getMessage()));
     }
 
     @CommandMethod("necrocore pluginmanager|pm unload <pluginName>")
@@ -52,7 +55,8 @@ public class PluginManagerCommand extends CommandClass {
         }
 
         net.md_5.bungee.api.plugin.PluginManager bungeePluginManager = ProxyServer.getInstance().getPluginManager();
-        PluginManager.unloadPlugin(bungeePluginManager.getPlugin(pluginName));
+        PluginManagerResult pluginResult = PluginManager.unloadPlugin(bungeePluginManager.getPlugin(pluginName));
+        sender.sendMessage(new TextComponent(pluginResult.getMessage()));
     }
 
     @CommandMethod("necrocore pluginmanager|pm reload <pluginName>")
@@ -63,6 +67,8 @@ public class PluginManagerCommand extends CommandClass {
         }
 
         net.md_5.bungee.api.plugin.PluginManager bungeePluginManager = ProxyServer.getInstance().getPluginManager();
-        PluginManager.reloadPlugin(bungeePluginManager.getPlugin(pluginName));
+        Map.Entry<PluginManagerResult, PluginManagerResult> pluginResult = PluginManager.reloadPlugin(bungeePluginManager.getPlugin(pluginName));
+        sender.sendMessage(new TextComponent(pluginResult.getKey().getMessage()));
+        sender.sendMessage(new TextComponent(pluginResult.getValue().getMessage()));
     }
 }
