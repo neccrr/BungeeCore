@@ -19,7 +19,7 @@ repositories {
 dependencies {
     // Lombok Annotations
     implementation 'org.projectlombok:lombok:1.18.26'
-    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
 
     // BungeeCord API
     compileOnly 'net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT'
