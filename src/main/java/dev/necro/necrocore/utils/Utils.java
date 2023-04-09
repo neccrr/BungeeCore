@@ -3,7 +3,9 @@ package dev.necro.necrocore.utils;
 import dev.necro.necrocore.NecroCore;
 import lombok.experimental.UtilityClass;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.jetbrains.annotations.Nullable;
 
 @UtilityClass
@@ -21,7 +23,7 @@ public class Utils {
      */
     public String getPluginDescription() {
         if (pluginDescription == null) {
-            pluginDescription = plugin.getMainConfig().getPREFIX() + StringUtils.colorize("&eThis server is running &bNecroCore &b" + plugin.getDescription().getVersion() + " &eby &b" + plugin.getDescription().getAuthor());
+            pluginDescription = StringUtils.colorize(plugin.getMainConfigManager().getPREFIX() + "&eThis server is running &bNecroCore &b" + plugin.getDescription().getVersion() + " &eby &b" + plugin.getDescription().getAuthor());
         }
 
         return pluginDescription;
@@ -56,7 +58,7 @@ public class Utils {
      */
     public boolean checkPermission(CommandSender target, String permission, boolean others, boolean showPermission, boolean silent, @Nullable String command) {
         permission = "necrocore." + permission.toLowerCase();
-        silent = plugin.getMainConfig().isSILENT_PERMISSION_CHECK();
+        silent = plugin.getMainConfigManager().isSILENT_PERMISSION_CHECK();
 
         if (others) {
             permission += ".others";
@@ -69,20 +71,28 @@ public class Utils {
         if (!silent) {
             if (showPermission) {
                 if (command != null) {
-                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do &l" + command + "&c!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do &l" + command + "&c!")));
                 } else {
-                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do that!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission &l" + permission + " to do that!")));
                 }
             } else {
                 if (command != null) {
-                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission to do &l" + command + "&c!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission to do &l" + command + "&c!")));
                 } else {
-                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission to do that!")));
+                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() +  StringUtils.colorize("&cYou don't have the required permission to do that!")));
                 }
             }
         } else {
             target.sendMessage(new TextComponent(StringUtils.colorize("Unknown command! Type \"/help\" for help!")));
         }
+
+        plugin.getLogger().info(StringUtils.colorize("Player &l" + target.getName() + " &rattempted to run something but lacks &l" + permission + " &rpermission."));
+        for (final ProxiedPlayer currentPlayer : ProxyServer.getInstance().getPlayers()) {
+            if (currentPlayer.hasPermission("necrocore.operator")) {
+                currentPlayer.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&bPlayer &e&l" + target.getName() + " &battempted to run something but lacks &l&e" + permission + " &bpermission.")));
+            }
+        }
+
         return false;
     }
 

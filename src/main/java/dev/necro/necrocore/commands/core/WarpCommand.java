@@ -26,7 +26,7 @@ public class WarpCommand extends CommandClass {
             ProxiedPlayer target = ProxyServer.getInstance().getPlayer(targetName);
 
             if (target == null) {
-                player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getTARGET_NOT_FOUND()
+                player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getTARGET_NOT_FOUND()
                         .replace("{target_name}", targetName)));
             } else {
                 ServerInfo targetServer = target.getServer().getInfo();
@@ -34,19 +34,19 @@ public class WarpCommand extends CommandClass {
 
                 if (playerServer != targetServer)  {
                     player.connect(targetServer);
-                    player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getWARP_CONNECT()
+                    player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getWARP_CONNECT()
                             .replace("{target_name}", target.getName())
                             .replace("{target_server_name}", target.getServer().getInfo().getName())));
                 } else {
                     // Already on same server exception
-                    player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getWARP_SAME_SERVER()
+                    player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getWARP_SAME_SERVER()
                             .replace("{target_name}", target.getName())
                             .replace("{target_server_name}", target.getServer().getInfo().getName())));
                 }
             }
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPLAYER_ONLY()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPLAYER_ONLY()));
         }
     }
 

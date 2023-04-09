@@ -22,11 +22,11 @@ public class ReplyCommand extends CommandClass {
             ProxiedPlayer target = ProxyServer.getInstance().getPlayer(ReplyManager.get(player.getUniqueId()));
 
             if (!ReplyManager.isInReply(player.getUniqueId())) {
-                player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPRIVATEMESSAGE_NO_ONE_TO_REPLY()));
+                player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPRIVATEMESSAGE_NO_ONE_TO_REPLY()));
                 return;
             }
 
-            player.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPRIVATEMESSAGE_TO()
+            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPRIVATEMESSAGE_TO()
                     .replace("{player_name}", player.getName())
                     .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
                     .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
@@ -35,7 +35,7 @@ public class ReplyCommand extends CommandClass {
                     .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
                     .replace("{message}", StringUtils.colorize(message))));
 
-            target.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPRIVATEMESSAGE_FORM()
+            target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPRIVATEMESSAGE_FORM()
                     .replace("{player_name}", player.getName())
                     .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
                     .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
@@ -44,7 +44,7 @@ public class ReplyCommand extends CommandClass {
                     .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
                     .replace("{message}", StringUtils.colorize(message))));
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPLAYER_ONLY()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPLAYER_ONLY()));
         }
     }
 }

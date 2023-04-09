@@ -1,12 +1,12 @@
 package dev.necro.necrocore.config.configs;
 
 import dev.necro.necrocore.NecroCore;
-import dev.necro.necrocore.config.ConfigManager;
 import dev.necro.necrocore.utils.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
 import net.md_5.bungee.config.Configuration;
 
+import java.io.IOException;
 import java.util.List;
 
 @Getter
@@ -14,7 +14,6 @@ import java.util.List;
 public class MainConfigManager {
 
     private final NecroCore plugin;
-    private final ConfigManager configManager;
 
     private String PREFIX;
     private boolean SILENT_PERMISSION_CHECK;
@@ -27,15 +26,13 @@ public class MainConfigManager {
 
     public MainConfigManager(NecroCore plugin) {
         this.plugin = plugin;
-        this.configManager = new ConfigManager(plugin);
-        this.reload();
     }
 
     /**
      * Reloads the main configuration file
      */
-    public void reload() {
-        Configuration mainConfig = configManager.getConfig("config.yml");
+    public void reload() throws IOException {
+        Configuration mainConfig = this.plugin.getConfigManager().loadConfig("config.yml");
 
         // General Plugin Configuration
         // # <> - Required
@@ -52,30 +49,7 @@ public class MainConfigManager {
         // Hub Command (/hub)
         // # Sends you to hub servers
         this.HUB_SERVERS = mainConfig.getStringList("COMMANDS.HUB_COMMAND.HUB_SERVERS");
-    }
 
-    /**
-     * Save the main configuration file
-     */
-    public void save() {
-        Configuration mainConfig = configManager.getConfig("config.yml");
-
-        // General Plugin Configuration
-        // # <> - Required
-        // # [] - Optional
-        mainConfig.set("PREFIX", this.PREFIX);
-        mainConfig.set("SILENT_PERMISSION_CHECK", this.SILENT_PERMISSION_CHECK);
-        mainConfig.set("USE_COMMAND_CONFIRMATION", this.USE_COMMAND_CONFIRMATION);
-
-        // Global Chat Command (/globalchat|global|gc|g <message>)
-        // # Sends your message to the whole network
-        mainConfig.set("COMMANDS.GLOBALCHAT_COMMAND.COOLDOWN", this.GLOBALCHAT_COOLDOWN);
-        mainConfig.set("COMMANDS.GLOBALCHAT_COMMAND.LOGS_GLOBALCHAT_TO_CONSOLE", this.GLOBALCHAT_LOGS_TO_CONSOLE);
-
-        // Hub Command (/hub)
-        // # Sends you to hub servers
-        mainConfig.set("COMMANDS.HUB_COMMAND.HUB_SERVERS", this.HUB_SERVERS);
-
-        configManager.save("config.yml");
+        this.plugin.getConfigManager().reloadConfig("config.yml");
     }
 }

@@ -261,7 +261,7 @@ public class PluginManager {
             pluginList.append(plugin.getDescription().getName());
         }
 
-        return necroCore.getMessagesConfig().getPLUGIN_MANAGER_LIST()
+        return necroCore.getMessagesConfigManager().getPLUGIN_MANAGER_LIST()
                 // Placeholders
                 .replace("{plugin_amounts}", String.valueOf(plugins.size()))
                 .replace("{plugin_lists}", pluginList);

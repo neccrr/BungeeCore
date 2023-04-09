@@ -31,8 +31,10 @@ public final class NecroCore extends Plugin {
     @Getter
     private static NecroCore instance;
 
-    private MainConfigManager mainConfig;
-    private MessagesConfigManager messagesConfig;
+    private ConfigManager configManager;
+    private MainConfigManager mainConfigManager;
+    private MessagesConfigManager messagesConfigManager;
+
     private ConfirmationManager confirmationManager;
 
     private NecroCoreCommand mainCommand;
@@ -59,15 +61,12 @@ public final class NecroCore extends Plugin {
         this.loadConfigs();
 
         // Initialize managers
-        this.mainConfig = new MainConfigManager(this);
-        this.messagesConfig = new MessagesConfigManager(this);
         this.confirmationManager = new ConfirmationManager(this);
 
         // Registers commands
         this.mainCommand = new NecroCoreCommand(this);
 
-        // w
-        this.sendStuffToConsole();
+        this.startupMessage();
         this.getLogger().info("NecroCore " + this.getDescription().getVersion() + " loaded in " + (System.currentTimeMillis() - millis) + "ms!");
     }
 
@@ -76,8 +75,7 @@ public final class NecroCore extends Plugin {
      */
     @Override
     public void onDisable() {
-        // Save the configuration files
-        this.saveConfigs();
+        this.getLogger().info("Starting shutdown process...");
 
         this.getLogger().info("GoodBye!");
     }
@@ -87,27 +85,21 @@ public final class NecroCore extends Plugin {
      */
     public void loadConfigs() {
         // Initialize config manager
-        ConfigManager configManager = new ConfigManager(this);
+        this.getLogger().info("Loading configuration...");
 
-        // Load main config
-        configManager.getConfig("config.yml");
-        // Load messages config
-        configManager.getConfig("messages.yml");
-    }
+        this.configManager = new ConfigManager(this);
+        this.mainConfigManager = new MainConfigManager(this);
+        this.messagesConfigManager = new MessagesConfigManager(this);
 
-    /**
-     * Save configuration files
-     */
-    public void saveConfigs() {
-        long millis = System.currentTimeMillis();
-        this.getLogger().info("Saving configuration files...");
-
-        // Save the main configuration file
-        mainConfig.save();
-        // Save the messages' configuration file
-        messagesConfig.save();
-
-        this.getLogger().info("Saved the configuration file in " + (System.currentTimeMillis() - millis) + "ms!");
+        try {
+            // Load main config
+            configManager.loadConfig("config.yml");
+            // Load messages config
+            configManager.loadConfig("messages.yml");
+        } catch (IOException e) {
+            this.getLogger().severe("Cannot load the Configuration!");
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -137,6 +129,7 @@ public final class NecroCore extends Plugin {
         long millis = System.currentTimeMillis();
 
         this.getLogger().info("Loading and injecting dependencies...");
+        this.getLogger().info("(If this is the first time it may take a while to download all the dependencies)");
         Map<String, String> dependencyMap = new HashMap<>();
 
         InputStream stream = null;
@@ -201,7 +194,7 @@ public final class NecroCore extends Plugin {
     /**
      * idk
      */
-    private void sendStuffToConsole() {
+    private void startupMessage() {
         String n = StringUtils.colorize(
                 "\n" +
                         "&b  _   _                        _____                          \n" +

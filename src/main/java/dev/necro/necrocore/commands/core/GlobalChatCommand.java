@@ -40,26 +40,26 @@ public class GlobalChatCommand extends CommandClass {
                 }
             }
 
-            cooldown.put(player.getName(), System.currentTimeMillis() + (plugin.getMainConfig().getGLOBALCHAT_COOLDOWN() * 1000));
+            cooldown.put(player.getName(), System.currentTimeMillis() + (plugin.getMainConfigManager().getGLOBALCHAT_COOLDOWN() * 1000));
 
             for (final ProxiedPlayer target : ProxyServer.getInstance().getPlayers()) {
                 if (target.hasPermission("necrocore.globalchat.read")) {
-                    target.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + this.getFormattedGlobalChat(player, message)));
+                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + this.getFormattedGlobalChat(player, message)));
                 }
             }
 
             // Logs to console
-            if (plugin.getMainConfig().isGLOBALCHAT_LOGS_TO_CONSOLE()) {
+            if (plugin.getMainConfigManager().isGLOBALCHAT_LOGS_TO_CONSOLE()) {
                 ProxyServer.getInstance().getConsole().sendMessage(new TextComponent(this.getFormattedGlobalChat(player, message)));
             }
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfig().getPREFIX() + plugin.getMessagesConfig().getPLAYER_ONLY()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPLAYER_ONLY()));
         }
     }
 
     private String getFormattedGlobalChat(ProxiedPlayer player, String message) {
-        return plugin.getMessagesConfig().getGLOBALCHAT_FORMAT()
+        return plugin.getMessagesConfigManager().getGLOBALCHAT_FORMAT()
                 .replace("{player_name}", player.getName())
                 .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
                 .replace("{player_suffix}", LuckPermsHook.getSuffix(player))

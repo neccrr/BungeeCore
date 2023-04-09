@@ -58,10 +58,7 @@ public class LuckPermsHook {
      */
     public String getGroupDisplayName(ProxiedPlayer player) {
         CachedMetaData playerMetaData = plugin.getLuckPerms().getPlayerAdapter(ProxiedPlayer.class).getMetaData(player);
-        String playerGroup = playerMetaData.getPrimaryGroup();
-        if (playerGroup == null) {
-            return "default";
-        }
+        String playerGroup = (playerMetaData.getPrimaryGroup() != null) ? playerMetaData.getPrimaryGroup() : "default";
 
         Group group = plugin.getLuckPerms().getGroupManager().getGroup(playerGroup);
         String groupDisplayName = group.getFriendlyName();
