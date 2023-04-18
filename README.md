@@ -1,6 +1,6 @@
 # Bungee Core  
 [![Java CI with Gradle](https://github.com/neccrr/BungeeCore/actions/workflows/gradle.yml/badge.svg)](https://github.com/Cavry-Dev-Team/NecroCore/actions/workflows/gradle.yml) 
-[![Code Grade](https://app.codacy.com/project/badge/Grade/7990038db9cc4367a5e5a22f763ac556)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cavry-Dev-Team/NecroCore&amp;utm_campaign=Badge_Grade)
+[![Code Grade](https://app.codacy.com/project/badge/Grade/5fff583ea44b404caa31235d36e6926c)](https://app.codacy.com/gh/neccrr/BungeeCore/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 BungeeCore is an essential plugin for Minecraft Proxy servers. It allows server admins to control the proxy servers.
 
