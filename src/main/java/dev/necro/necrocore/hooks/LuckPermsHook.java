@@ -61,6 +61,7 @@ public class LuckPermsHook {
         String playerGroup = (playerMetaData.getPrimaryGroup() != null) ? playerMetaData.getPrimaryGroup() : "default";
 
         Group group = plugin.getLuckPerms().getGroupManager().getGroup(playerGroup);
+        assert group != null;
         String groupDisplayName = group.getFriendlyName();
 
         return StringUtils.colorize(groupDisplayName);

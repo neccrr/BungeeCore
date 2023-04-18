@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
+@SuppressWarnings("unused")
 public class ConfirmationManager {
 
     private final NecroCore plugin;
@@ -31,10 +32,11 @@ public class ConfirmationManager {
         if (!skip || sender instanceof ProxiedPlayer) {
             ProxiedPlayer player = (ProxiedPlayer) sender;
             if (warnings != null && !warnings.isEmpty()) {
-                warnings.forEach(player::sendMessage);
+                // warnings.forEach(player::sendMessage);
+                warnings.stream().map(TextComponent::new).forEach(player::sendMessage);
             }
 
-            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&ePlease type &b/necrocore confirm &eto confirm your action.")));
+            player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&ePlease type &b/necrocore confirm &eto confirm your action.")));
             this.confirmationMap.put(player, callable);
         } else {
             callable.call();
@@ -76,11 +78,11 @@ public class ConfirmationManager {
      */
     public void confirm(ProxiedPlayer player) {
         if (!this.confirmationMap.containsKey(player)) {
-            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cYou don't have any pending action!")));
+            player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cYou don't have any pending action!")));
             return;
         }
 
-        player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&aAction confirmed.")));
+        player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&aAction confirmed.")));
         this.confirmationMap.get(player).call();
     }
 
@@ -92,7 +94,7 @@ public class ConfirmationManager {
      */
     public void deleteConfirmation(ProxiedPlayer player) {
         if (!this.confirmationMap.containsKey(player)) {
-            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cYou don't have any pending action!")));
+            player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cYou don't have any pending action!")));
             return;
         }
 

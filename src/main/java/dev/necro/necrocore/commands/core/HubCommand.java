@@ -15,6 +15,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.List;
 import java.util.Random;
 
+@SuppressWarnings("unused")
 public class HubCommand extends CommandClass {
 
     @CommandMethod("hub|lobby")
@@ -28,7 +29,7 @@ public class HubCommand extends CommandClass {
             ProxiedPlayer player = (ProxiedPlayer) sender;
 
             // Randomize the hub servers
-            List<String> hubServers = plugin.getMainConfigManager().getHUB_SERVERS();
+            List<String> hubServers = plugin.getMainConfig().HUB_SERVERS();
             Random random = new Random();
             int randomObject = random.nextInt(hubServers.size());
             String result = hubServers.get(randomObject);
@@ -41,10 +42,10 @@ public class HubCommand extends CommandClass {
                 player.connect(hubServer);
             } else {
                 int err = 10 + random.nextInt(90);
-                player.sendMessage(new TextComponent(StringUtils.colorize(plugin.getMainConfigManager().getPREFIX() + "&cCan't connect you to Hub servers. If this keeps happening, Please report this to staff members. (0x00" + err + ")")));
+                player.sendMessage(new TextComponent(StringUtils.colorize(plugin.getMainConfig().PREFIX()) + "&cCan't connect you to Hub servers. If this keeps happening, Please report this to staff members. (0x00" + err + ")"));
             }
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPLAYER_ONLY()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PLAYER_ONLY()));
         }
     }
 }

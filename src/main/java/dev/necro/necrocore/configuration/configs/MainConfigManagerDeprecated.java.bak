@@ -1,4 +1,4 @@
-package dev.necro.necrocore.config.configs;
+package dev.necro.necrocore.configuration.configs;
 
 import dev.necro.necrocore.NecroCore;
 import dev.necro.necrocore.utils.StringUtils;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class MainConfigManager {
+public class MainConfigManagerDeprecated {
 
     private final NecroCore plugin;
 
@@ -24,7 +24,7 @@ public class MainConfigManager {
 
     private List<String> HUB_SERVERS;
 
-    public MainConfigManager(NecroCore plugin) {
+    public MainConfigManagerDeprecated(NecroCore plugin) {
         this.plugin = plugin;
     }
 

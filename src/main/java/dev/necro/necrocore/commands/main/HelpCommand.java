@@ -9,6 +9,7 @@ import net.md_5.bungee.api.CommandSender;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+@SuppressWarnings("unused")
 public class HelpCommand extends CommandClass {
 
     @CommandMethod("necrocore help|? [query]")

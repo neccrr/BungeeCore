@@ -98,7 +98,7 @@ public class DependencyManager {
      * @param fileName the name
      * @param fileUrl  the file url
      * @param dirPath  the directory path
-     * @throws IOException  if the dependency file doesn't exists
+     * @throws IOException  if the dependency file doesn't exist
      * @throws IllegalAccessException if the dependency file isn't a .jar
      */
     public void load(String fileName, String fileUrl, Path dirPath) throws IOException, IllegalAccessException {
@@ -140,7 +140,7 @@ public class DependencyManager {
      * loads the dependency file
      *
      * @param file the file
-     * @throws IOException  if the dependency file doesn't exists
+     * @throws IOException  if the dependency file doesn't exist
      * @throws IllegalAccessException if the dependency file isn't a .jar
      */
     public void load(File file) throws IOException, IllegalAccessException {
@@ -199,7 +199,7 @@ public class DependencyManager {
      *
      * @param dependencies the dependencies
      * @param dirPath      the directory path
-     * @throws IOException  if the dependency file doesn't exists
+     * @throws IOException  if the dependency file doesn't exist
      * @throws IllegalAccessException if the dependency file isn't a .jar
      */
     public void load(Map<String, String> dependencies, Path dirPath) throws IOException, IllegalAccessException {

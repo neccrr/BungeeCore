@@ -11,6 +11,7 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+@SuppressWarnings("unused")
 public class InfoCommand extends CommandClass {
 
     @CommandMethod("info|playerinfo|dox [target]")
@@ -22,17 +23,17 @@ public class InfoCommand extends CommandClass {
 
         TargetsCallback targets = this.getTargets(sender, targetName);
         if (targets.notifyIfEmpty()) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cNo targets found!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cNo targets found!")));
             return;
         }
         if (targets.size() > 1) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cYou can only check one player at a time!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cYou can only check one player at a time!")));
             return;
         }
 
         targets.stream().findFirst().ifPresent(target -> {
-            for (String result : plugin.getMessagesConfigManager().getINFO_FORMAT()) {
-                sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + result
+            for (String result : plugin.getMessagesConfig().INFO_FORMAT()) {
+                sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + result
                         .replace("{target_name}", target.getName())
                         .replace("{target_uuid}", String.valueOf(target.getUniqueId()))
                         .replace("{target_rank}", LuckPermsHook.getGroupDisplayName(target))

@@ -5,9 +5,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import dev.necro.necrocore.commands.main.NecroCoreCommand;
-import dev.necro.necrocore.config.ConfigManager;
-import dev.necro.necrocore.config.configs.MainConfigManager;
-import dev.necro.necrocore.config.configs.MessagesConfigManager;
+import dev.necro.necrocore.configuration.ConfigManager;
+import dev.necro.necrocore.configuration.configs.MainConfig;
+import dev.necro.necrocore.configuration.configs.MessagesConfig;
 import dev.necro.necrocore.dependency.DependencyManager;
 import dev.necro.necrocore.managers.ConfirmationManager;
 import dev.necro.necrocore.utils.StringUtils;
@@ -26,14 +26,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Getter
+@SuppressWarnings("ResultOfMethodCallIgnored")
 public final class NecroCore extends Plugin {
 
     @Getter
     private static NecroCore instance;
 
     private ConfigManager configManager;
-    private MainConfigManager mainConfigManager;
-    private MessagesConfigManager messagesConfigManager;
+    private MainConfig mainConfig;
+    private MessagesConfig messagesConfig;
 
     private ConfirmationManager confirmationManager;
 
@@ -85,21 +86,20 @@ public final class NecroCore extends Plugin {
      */
     public void loadConfigs() {
         // Initialize config manager
-        this.getLogger().info("Loading configuration...");
+        long millis = System.currentTimeMillis();
+        this.getLogger().info("Loading configurations...");
 
         this.configManager = new ConfigManager(this);
-        this.mainConfigManager = new MainConfigManager(this);
-        this.messagesConfigManager = new MessagesConfigManager(this);
 
         try {
-            // Load main config
-            configManager.loadConfig("config.yml");
-            // Load messages config
-            configManager.loadConfig("messages.yml");
+            this.mainConfig = new MainConfig();
+            this.messagesConfig = new MessagesConfig();
         } catch (IOException e) {
             this.getLogger().severe("Cannot load the Configuration!");
             e.printStackTrace();
         }
+
+        this.getLogger().info("Configurations loaded in " + (System.currentTimeMillis() - millis) + "ms!");
     }
 
     /**

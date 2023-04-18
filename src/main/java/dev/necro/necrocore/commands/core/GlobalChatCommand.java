@@ -17,6 +17,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class GlobalChatCommand extends CommandClass {
 
     Map<String, Long> cooldown = new HashMap<>();
@@ -40,26 +41,26 @@ public class GlobalChatCommand extends CommandClass {
                 }
             }
 
-            cooldown.put(player.getName(), System.currentTimeMillis() + (plugin.getMainConfigManager().getGLOBALCHAT_COOLDOWN() * 1000));
+            cooldown.put(player.getName(), System.currentTimeMillis() + (plugin.getMainConfig().GLOBALCHAT_COOLDOWN() * 1000));
 
             for (final ProxiedPlayer target : ProxyServer.getInstance().getPlayers()) {
                 if (target.hasPermission("necrocore.globalchat.read")) {
-                    target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + this.getFormattedGlobalChat(player, message)));
+                    target.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + this.getFormattedGlobalChat(player, message)));
                 }
             }
 
             // Logs to console
-            if (plugin.getMainConfigManager().isGLOBALCHAT_LOGS_TO_CONSOLE()) {
+            if (plugin.getMainConfig().GLOBALCHAT_LOGS_TO_CONSOLE()) {
                 ProxyServer.getInstance().getConsole().sendMessage(new TextComponent(this.getFormattedGlobalChat(player, message)));
             }
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPLAYER_ONLY()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PLAYER_ONLY()));
         }
     }
 
     private String getFormattedGlobalChat(ProxiedPlayer player, String message) {
-        return plugin.getMessagesConfigManager().getGLOBALCHAT_FORMAT()
+        return plugin.getMessagesConfig().GLOBALCHAT_FORMAT()
                 .replace("{player_name}", player.getName())
                 .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
                 .replace("{player_suffix}", LuckPermsHook.getSuffix(player))

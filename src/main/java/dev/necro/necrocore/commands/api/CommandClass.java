@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+@SuppressWarnings("unused")
 public abstract class CommandClass {
 
     protected NecroCore plugin = NecroCore.getInstance();
@@ -99,7 +100,7 @@ public abstract class CommandClass {
                         }
                     }
                 } else {
-                    sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cInvalid amount value!")));
+                    sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cInvalid amount value!")));
                     callback.setNotified(true);
                 }
                 return callback;
@@ -110,7 +111,7 @@ public abstract class CommandClass {
                 for (String potTarget : arg.split(",")) {
                     ProxiedPlayer potTargetPlayer = ProxyServer.getInstance().getPlayer(potTarget);
                     if (potTargetPlayer == null) {
-                        sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlayer &l" + potTarget + " &cnot found!")));
+                        sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlayer &l" + potTarget + " &cnot found!")));
                         continue;
                     }
 
@@ -122,7 +123,7 @@ public abstract class CommandClass {
             // selected player
             ProxiedPlayer targetPlayer = ProxyServer.getInstance().getPlayer(arg);
             if (targetPlayer == null) {
-                sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlayer not found!")));
+                sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlayer not found!")));
                 callback.setNotified(true);
                 return callback;
             }
@@ -132,14 +133,14 @@ public abstract class CommandClass {
         }
 
         if (arg == null) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
             callback.setNotified(true);
             return callback;
         }
 
         switch (arg.toLowerCase()) {
             case "self": {
-                sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
+                sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
                 callback.setNotified(true);
                 return callback;
             }
@@ -180,7 +181,7 @@ public abstract class CommandClass {
                     }
                 }
             } else {
-                sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cInvalid amount value!")));
+                sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cInvalid amount value!")));
                 callback.setNotified(true);
             }
             return callback;
@@ -191,7 +192,7 @@ public abstract class CommandClass {
             for (String potTarget : arg.split(",")) {
                 ProxiedPlayer potTargetPlayer = ProxyServer.getInstance().getPlayer(potTarget);
                 if (potTargetPlayer == null) {
-                    sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlayer &l" + potTarget + " &cnot found!")));
+                    sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlayer &l" + potTarget + " &cnot found!")));
                     continue;
                 }
 
@@ -202,7 +203,7 @@ public abstract class CommandClass {
 
         ProxiedPlayer targetPlayer = ProxyServer.getInstance().getPlayer(arg);
         if (targetPlayer == null) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlayer not found!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlayer not found!")));
             callback.setNotified(true);
             return callback;
         }
@@ -256,7 +257,7 @@ public abstract class CommandClass {
             // selected player
             ProxiedPlayer targetPlayer = ProxyServer.getInstance().getPlayer(arg);
             if (targetPlayer == null) {
-                sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlayer not found!")));
+                sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlayer not found!")));
                 callback.setNotified(true);
                 return callback;
             }
@@ -266,14 +267,14 @@ public abstract class CommandClass {
         }
 
         if (arg == null) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
             callback.setNotified(true);
             return callback;
         }
 
         switch (arg.toLowerCase()) {
             case "self": {
-                sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
+                sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlease specify a target player!")));
                 callback.setNotified(true);
                 return callback;
             }
@@ -291,7 +292,7 @@ public abstract class CommandClass {
 
         ProxiedPlayer targetPlayer = ProxyServer.getInstance().getPlayer(arg);
         if (targetPlayer == null) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cPlayer not found!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cPlayer not found!")));
             callback.setNotified(true);
             return callback;
         }
@@ -377,7 +378,7 @@ public abstract class CommandClass {
                 }
 
                 if (!isDoubleCallback.isDouble() || !isIntegerCallback.isInteger()) {
-                    sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cInvalid target range or amount value!");
+                    sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cInvalid target range or amount value!");
                     callback.setNotified(true);
                     return callback;
                 }
@@ -415,7 +416,7 @@ public abstract class CommandClass {
                 }
 
                 if (!isDoubleCallback.isDouble() || !isIntegerCallback.isInteger()) {
-                    sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cInvalid target range or amount value!");
+                    sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cInvalid target range or amount value!");
                     callback.setNotified(true);
                     return callback;
                 }
@@ -462,7 +463,7 @@ public abstract class CommandClass {
                         }
                     }
                 } else {
-                    sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cInvalid amount value!");
+                    sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cInvalid amount value!");
                     callback.setNotified(true);
                 }
                 return callback;
@@ -473,7 +474,7 @@ public abstract class CommandClass {
                 for (String potTarget : arg.split(",")) {
                     OfflinePlayer potTargetPlayer = Bukkit.getOfflinePlayer(potTarget);
                     if (potTargetPlayer == null) {
-                        sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cPlayer &l" + potTarget + " &cnot found!");
+                        sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cPlayer &l" + potTarget + " &cnot found!");
                         continue;
                     }
 
@@ -485,7 +486,7 @@ public abstract class CommandClass {
             // selected player
             OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(arg);
             if (targetPlayer == null) {
-                sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cPlayer not found!");
+                sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cPlayer not found!");
                 callback.setNotified(true);
                 return callback;
             }
@@ -495,14 +496,14 @@ public abstract class CommandClass {
         }
 
         if (arg == null) {
-            sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cPlease specify a target player!");
+            sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cPlease specify a target player!");
             callback.setNotified(true);
             return callback;
         }
 
         switch (arg.toLowerCase()) {
             case "self": {
-                sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cPlease specify a target player!");
+                sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cPlease specify a target player!");
                 callback.setNotified(true);
                 return callback;
             }
@@ -543,7 +544,7 @@ public abstract class CommandClass {
                     }
                 }
             } else {
-                sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cInvalid amount value!");
+                sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cInvalid amount value!");
                 callback.setNotified(true);
             }
             return callback;
@@ -554,7 +555,7 @@ public abstract class CommandClass {
             for (String potTarget : arg.split(",")) {
                 OfflinePlayer potTargetPlayer = Bukkit.getOfflinePlayer(potTarget);
                 if (potTargetPlayer == null) {
-                    sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cPlayer &l" + potTarget + " &cnot found!");
+                    sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cPlayer &l" + potTarget + " &cnot found!");
                     continue;
                 }
 
@@ -565,7 +566,7 @@ public abstract class CommandClass {
 
         OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(arg);
         if (targetPlayer == null) {
-            sender.sendMessage(plugin.getMainConfigManager().getPrefix() + "&cPlayer not found!");
+            sender.sendMessage(plugin.getMainConfigManager().PREFIX()) + "&cPlayer not found!");
             callback.setNotified(true);
             return callback;
         }
@@ -576,7 +577,7 @@ public abstract class CommandClass {
     **/
 
     public CanSkipCallback canSkip(String action, TargetsCallback targetsCallback, CommandSender sender) {
-        if (!plugin.getMainConfigManager().isUSE_COMMAND_CONFIRMATION()) {
+        if (!plugin.getMainConfig().USE_COMMAND_CONFIRMATION()) {
             return new CanSkipCallback(sender, true, null);
         }
 
@@ -589,8 +590,8 @@ public abstract class CommandClass {
 
         if (targetsCallback.size() >= 75) {
             return new CanSkipCallback(sender, false, Collections.singletonList(
-                    plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&eAre you sure you want to execute &b" + action + " &eon &b" + targetsCallback.size() + " &eplayers?")
-            ));
+                    plugin.getMainConfig().PREFIX() + StringUtils.colorize("&eAre you sure you want to execute &b" + action + " &eon &b" + targetsCallback.size() + " &eplayers?"))
+            );
         }
 
         boolean playerSender = sender instanceof ProxiedPlayer;
@@ -601,9 +602,9 @@ public abstract class CommandClass {
             if (server != null) {
                 if (server != target.getServer()) {
                     return new CanSkipCallback(sender, false, Arrays.asList(
-                            plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&eAre you sure you want to execute &b" + action + " &eon &b" + targetsCallback.size() + " &eplayers?"),
-                            plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&eSome players are scattered across different servers.")
-                    ));
+                            plugin.getMainConfig().PREFIX() + StringUtils.colorize("&eAre you sure you want to execute &b" + action + " &eon &b" + targetsCallback.size() + " &eplayers?"),
+                            plugin.getMainConfig().PREFIX() + StringUtils.colorize("&eSome players are scattered across different servers."))
+                    );
                 }
 
                 continue;

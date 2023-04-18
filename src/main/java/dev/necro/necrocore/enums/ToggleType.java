@@ -4,6 +4,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 
+@SuppressWarnings("unused")
 public enum ToggleType {
     ON,
     OFF,

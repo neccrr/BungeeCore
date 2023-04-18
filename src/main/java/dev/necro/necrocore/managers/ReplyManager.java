@@ -36,6 +36,7 @@ public class ReplyManager {
      *
      * @param playerUUID The player's UUID
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean isInReply(UUID playerUUID) {
         return reply.containsKey(playerUUID);
     }

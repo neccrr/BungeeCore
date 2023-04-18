@@ -1,5 +1,6 @@
 package dev.necro.necrocore.managers.pluginmanager;
 
+@SuppressWarnings("unused")
 public class PluginManagerResult {
     private final String message;
     private final boolean positive;

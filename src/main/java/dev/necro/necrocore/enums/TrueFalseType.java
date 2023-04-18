@@ -3,6 +3,7 @@ package dev.necro.necrocore.enums;
 import lombok.Getter;
 import lombok.Setter;
 
+@SuppressWarnings("unused")
 public enum TrueFalseType {
 
     ON_OFF("On", "Off"),

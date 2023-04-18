@@ -28,7 +28,7 @@ import java.util.logging.Level;
  * @author  <a href="https://github.com/TheBlackEntity/PlugMan">PlugManX</a> (<a href="https://github.com/TheBlackEntity">TheBlackEntity</a>)
  */
 @UtilityClass
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "unchecked"})
 public class PluginManager {
 
     private final NecroCore necroCore = NecroCore.getInstance();
@@ -243,7 +243,7 @@ public class PluginManager {
     }
 
     /**
-     * Get list of loaded plugins
+     * Get a list of loaded plugins
      *
      * @return plugin list
      */
@@ -261,7 +261,7 @@ public class PluginManager {
             pluginList.append(plugin.getDescription().getName());
         }
 
-        return necroCore.getMessagesConfigManager().getPLUGIN_MANAGER_LIST()
+        return necroCore.getMessagesConfig().PLUGIN_MANAGER_LIST()
                 // Placeholders
                 .replace("{plugin_amounts}", String.valueOf(plugins.size()))
                 .replace("{plugin_lists}", pluginList);

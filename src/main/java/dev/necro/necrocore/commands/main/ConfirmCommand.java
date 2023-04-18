@@ -6,6 +6,7 @@ import dev.necro.necrocore.commands.api.CommandClass;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
+@SuppressWarnings("unused")
 public class ConfirmCommand extends CommandClass {
 
     @CommandMethod("necrocore confirm|yes|accept")

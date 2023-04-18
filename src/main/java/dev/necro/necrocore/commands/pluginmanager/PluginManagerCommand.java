@@ -11,12 +11,12 @@ import dev.necro.necrocore.utils.Utils;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.plugin.Plugin;
 import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.io.File;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class PluginManagerCommand extends CommandClass {
 
     @CommandMethod("necrocore pluginmanager|pm list")
@@ -40,7 +40,7 @@ public class PluginManagerCommand extends CommandClass {
         File file = new File("plugins", filename + ".jar");
 
         if (!file.exists()) {
-            sender.sendMessage(new TextComponent(plugin.getMessagesConfigManager().getPLUGIN_MANAGER_NOT_FOUND()
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PLUGIN_MANAGER_NOT_FOUND()
                     .replace("{plugin_name}", file.toString())));
         }
 

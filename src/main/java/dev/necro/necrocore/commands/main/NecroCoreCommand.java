@@ -1,5 +1,6 @@
 package dev.necro.necrocore.commands.main;
 
+import cloud.commandframework.CloudCapability;
 import cloud.commandframework.Command;
 import cloud.commandframework.CommandTree;
 import cloud.commandframework.annotations.AnnotationParser;
@@ -54,12 +55,14 @@ public class NecroCoreCommand {
         this.builder = this.commandManager.commandBuilder("necrocore", "core", "ncore");
 
         // registers the custom help command
-        BungeeAudiences bungeeAudiences = BungeeAudiences.create(plugin);
-        this.minecraftHelp = new MinecraftHelp<>(
-                "/necrocore help",
-                bungeeAudiences::sender,
-                this.commandManager
-        );
+        // still doesn't work IDK why
+        try (BungeeAudiences bungeeAudiences = BungeeAudiences.create(plugin)) {
+            this.minecraftHelp = new MinecraftHelp<>(
+                    "/necrocore help",
+                    bungeeAudiences::sender,
+                    this.commandManager
+            );
+        }
 
         // registers the annotation parser
         Function<ParserParameters, CommandMeta> commandMetaFunction = it ->
@@ -83,7 +86,6 @@ public class NecroCoreCommand {
                         sender.sendMessage(new TextComponent(Utils.getPluginDescription()));
                         return;
                     }
-
                     this.getMinecraftHelp().queryCommands(query, sender);
                 })
         );
@@ -91,7 +93,6 @@ public class NecroCoreCommand {
         this.initCommands();
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     private void initCommands() {
         plugin.getLogger().info("Loading and registering commands...");
         try {

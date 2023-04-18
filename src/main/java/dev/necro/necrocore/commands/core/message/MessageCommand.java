@@ -17,6 +17,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public class MessageCommand extends CommandClass {
 
     @CommandMethod("message|msg|m|whisper|w|tell <target> <message>")
@@ -31,17 +32,17 @@ public class MessageCommand extends CommandClass {
             }
 
             if (player.getName().equalsIgnoreCase(targetName)) {
-                player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPRIVATEMESSAGE_SELF()));
+                player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_SELF()));
                 return;
             }
 
             if (target == null) {
-                player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getTARGET_NOT_FOUND()
+                player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().TARGET_NOT_FOUND()
                         .replace("{target_name}", targetName)));
                 return;
             }
 
-            player.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPRIVATEMESSAGE_TO()
+            player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_TO()
                     .replace("{player_name}", player.getName())
                     .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
                     .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
@@ -50,7 +51,7 @@ public class MessageCommand extends CommandClass {
                     .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
                     .replace("{message}", StringUtils.colorize(message))));
 
-            target.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPRIVATEMESSAGE_FORM()
+            target.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_FROM()
                     .replace("{player_name}", player.getName())
                     .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
                     .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
@@ -62,7 +63,7 @@ public class MessageCommand extends CommandClass {
             this.reply(player.getUniqueId(), target.getUniqueId());
 
         } else {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPLAYER_ONLY()));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PLAYER_ONLY()));
         }
     }
 

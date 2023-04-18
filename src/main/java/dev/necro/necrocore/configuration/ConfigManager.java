@@ -1,4 +1,4 @@
-package dev.necro.necrocore.config;
+package dev.necro.necrocore.configuration;
 
 import dev.necro.necrocore.NecroCore;
 import lombok.Getter;
@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 @Getter
+@SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
 public class ConfigManager {
 
     private final NecroCore plugin;

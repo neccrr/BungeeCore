@@ -12,6 +12,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 
+@SuppressWarnings("unused")
 public class PingCommand extends CommandClass {
 
     @CommandMethod("ping")
@@ -25,7 +26,7 @@ public class PingCommand extends CommandClass {
             ProxiedPlayer player = (ProxiedPlayer) sender;
             int ping = player.getPing();
 
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPING_SELF()
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PING_SELF()
                     .replace("{ping}", String.valueOf(ping))));
         } else {
             pingOtherCommand(sender, "");
@@ -55,17 +56,17 @@ public class PingCommand extends CommandClass {
         TargetsCallback targets = this.getTargets(sender, targetName);
 
         if (targets.notifyIfEmpty()) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cNo targets found!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cNo targets found!")));
             return;
         }
         if (targets.size() > 1) {
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + StringUtils.colorize("&cYou can only check one player at a time!")));
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + StringUtils.colorize("&cYou can only check one player at a time!")));
             return;
         }
 
         targets.stream().findFirst().ifPresent(target -> {
             int targetPing = target.getPing();
-            sender.sendMessage(new TextComponent(plugin.getMainConfigManager().getPREFIX() + plugin.getMessagesConfigManager().getPING_OTHER()
+            sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PING_OTHER()
                     .replace("{target_ping}", String.valueOf(targetPing))
                     .replace("{target_name}", target.getName())));
         });
