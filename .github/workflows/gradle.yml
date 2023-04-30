@@ -44,14 +44,6 @@ jobs:
         distribution: "temurin"
         java-version: 17.0.3
         cache: "gradle"
-    - name: Gradle Dependency Submission
-      uses: mikepenz/gradle-dependency-submission@v0.8.6
-      with:
-        use-gradlew: false
-        gradle-build-module: |-
-          :
-        gradle-build-configuration: |-
-          compileClasspath
     - name: Set outputs
       id: vars
       run: echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
