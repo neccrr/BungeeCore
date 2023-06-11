@@ -45,7 +45,7 @@ public class MessagesConfig {
     private final String WARP_SAME_SERVER = StringUtils.colorize(messagesConfig.getString("COMMANDS.WARP_COMMAND.SAME_SERVER"));
 
     // Info Command (/info|playerinfo|dox <target>)
-    // # Gets some information about the target | "doxing btw" -jiternos
+    // # Gets some information about the target
     private final List<String> INFO_FORMAT = StringUtils.colorize(messagesConfig.getStringList("COMMANDS.INFO_COMMAND.FORMAT"));
 
     // Plugin Manager Command

@@ -49,11 +49,11 @@ public final class BungeeCore extends Plugin {
     public void onEnable() {
         long millis = System.currentTimeMillis();
 
-        // Initialize instance variable
-        instance = this;
-
         // Load dependencies
         this.loadDependencies();
+
+        // Initialize plugin instance
+        instance = this;
 
         // Hook into LuckPerms
         this.hookLuckPerms();
