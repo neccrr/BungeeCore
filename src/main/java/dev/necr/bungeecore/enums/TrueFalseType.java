@@ -1,7 +1,6 @@
 package dev.necr.bungeecore.enums;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @SuppressWarnings("unused")
 public enum TrueFalseType {
