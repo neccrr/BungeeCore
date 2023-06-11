@@ -54,9 +54,9 @@ jobs:
     - name: Build
       run: ./gradlew build
     - name: Rename build artifacts
-      run: mv build/libs/NecroCore-*.jar build/libs/NecroCore-${{ steps.vars.outputs.sha_short }}.jar
+      run: mv build/libs/BungeeCore-*.jar build/libs/BungeeCore-${{ steps.vars.outputs.sha_short }}.jar
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: NecroCore
-        path: build/libs/NecroCore-${{ steps.vars.outputs.sha_short }}.jar
+        name: BungeeCore
+        path: build/libs/BungeeCore-${{ steps.vars.outputs.sha_short }}.jar

@@ -1,6 +1,6 @@
-name: NecroCore
+name: BungeeCore
 version: '${version}'
-main: dev.necro.necrocore.NecroCore
+main: dev.necr.bungeecore.BungeeCore
 description: Just an simple BungeeCord core plugin
 author: necr
 softDepends:

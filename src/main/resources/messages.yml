@@ -54,10 +54,10 @@ COMMANDS:
       - "&7&m                                            "
 
   # Plugin Manager Command
-  # (/necrocore pluginmanager|pm list) | Lists all loaded plugin
-  # (/necrocore pluginmanager|pm load <pluginName>) | Loads a plugin
-  # (/necrocore pluginmanager|pm unload <pluginName>) | Unloads a plugin
-  # (/necrocore pluginmanager|pm reload <pluginName>) | Reloads a plugin
+  # (/bungeecore pluginmanager|pm list) | Lists all loaded plugin
+  # (/bungeecore pluginmanager|pm load <pluginName>) | Loads a plugin
+  # (/bungeecore pluginmanager|pm unload <pluginName>) | Unloads a plugin
+  # (/bungeecore pluginmanager|pm reload <pluginName>) | Reloads a plugin
   PLUGIN_MANAGER_COMMAND:
     LIST: "&fPlugins &7(&b{plugin_amounts}&7): &b{plugin_lists}"
     NOT_FOUND: "&cCould not find plugin named &l{plugin_name}"
