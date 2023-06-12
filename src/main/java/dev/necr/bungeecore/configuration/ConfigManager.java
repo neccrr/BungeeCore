@@ -2,6 +2,7 @@ package dev.necr.bungeecore.configuration;
 
 import dev.necr.bungeecore.BungeeCore;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
@@ -12,6 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 
 @Getter
+@RequiredArgsConstructor
 @SuppressWarnings({"unused", "ResultOfMethodCallIgnored"})
 public class ConfigManager {
 
@@ -20,10 +22,6 @@ public class ConfigManager {
     private File configFile;
 
     private Configuration configuration;
-
-    public ConfigManager(BungeeCore plugin) {
-        this.plugin = plugin;
-    }
 
     public Configuration loadConfig(String filename) throws IOException {
         configFile = new File(plugin.getDataFolder(), filename);

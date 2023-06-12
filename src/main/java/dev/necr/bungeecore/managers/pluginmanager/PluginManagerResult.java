@@ -1,14 +1,13 @@
 package dev.necr.bungeecore.managers.pluginmanager;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @SuppressWarnings("unused")
 public class PluginManagerResult {
+
     private final String message;
     private final boolean positive;
-
-    public PluginManagerResult(String message, boolean positive) {
-        this.message = message;
-        this.positive = positive;
-    }
 
     public String getMessage() {
         return message;

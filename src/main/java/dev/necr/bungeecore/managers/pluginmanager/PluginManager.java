@@ -31,7 +31,7 @@ import java.util.logging.Level;
 @SuppressWarnings({"deprecation", "unchecked"})
 public class PluginManager {
 
-    private final BungeeCore BUNGEE_CORE = BungeeCore.getInstance();
+    private final BungeeCore instance = BungeeCore.getInstance();
 
     public static Map.Entry<PluginManagerResult, PluginManagerResult> reloadPlugin(Plugin plugin) {
         File file = plugin.getFile();
@@ -167,7 +167,7 @@ public class PluginManager {
                 handler.close();
             }
         } catch (Throwable t) {
-            BUNGEE_CORE.getLogger().log(Level.SEVERE, "Exception disabling plugin '" + plugin.getDescription().getName() + "'", t);
+            instance.getLogger().log(Level.SEVERE, "Exception disabling plugin '" + plugin.getDescription().getName() + "'", t);
             exception = true;
         }
 
@@ -218,7 +218,7 @@ public class PluginManager {
                 allLoaders.remove(cl);
 
             } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException ex) {
-                BUNGEE_CORE.getLogger().log(Level.SEVERE, null, ex);
+                instance.getLogger().log(Level.SEVERE, null, ex);
 
                 return new PluginManagerResult("&cError while trying to unload plugin: &4Could not unload ClassLoader&c, see console for more info!", false);
             }
@@ -227,7 +227,7 @@ public class PluginManager {
 
                 ((URLClassLoader) cl).close();
             } catch (IOException ex) {
-                BUNGEE_CORE.getLogger().log(Level.SEVERE, null, ex);
+                instance.getLogger().log(Level.SEVERE, null, ex);
                 return new PluginManagerResult("&cError while trying to unload plugin: &4Could not close ClassLoader&c, see console for more info!", false);
             }
         }
@@ -261,7 +261,7 @@ public class PluginManager {
             pluginList.append(plugin.getDescription().getName());
         }
 
-        return BUNGEE_CORE.getMessagesConfig().PLUGIN_MANAGER_LIST()
+        return instance.getMessagesConfig().PLUGIN_MANAGER_LIST()
                 // Placeholders
                 .replace("{plugin_amounts}", String.valueOf(plugins.size()))
                 .replace("{plugin_lists}", pluginList);

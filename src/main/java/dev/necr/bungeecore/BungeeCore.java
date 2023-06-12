@@ -8,6 +8,7 @@ import dev.necr.bungeecore.commands.main.BungeeCoreCommand;
 import dev.necr.bungeecore.configuration.ConfigManager;
 import dev.necr.bungeecore.configuration.configs.MessagesConfig;
 import dev.necr.bungeecore.dependency.DependencyManager;
+import dev.necr.bungeecore.listeners.CommandBlockerListener;
 import dev.necr.bungeecore.managers.ConfirmationManager;
 import dev.necr.bungeecore.utils.StringUtils;
 import dev.necr.bungeecore.configuration.configs.MainConfig;
@@ -67,6 +68,9 @@ public final class BungeeCore extends Plugin {
         // Registers commands
         this.mainCommand = new BungeeCoreCommand(this);
 
+        // Registers listeners
+        this.registerListeners();
+
         this.startupMessage();
         this.getLogger().info("BungeeCore " + this.getDescription().getVersion() + " loaded in " + (System.currentTimeMillis() - millis) + "ms!");
     }
@@ -79,47 +83,6 @@ public final class BungeeCore extends Plugin {
         this.getLogger().info("Starting shutdown process...");
 
         this.getLogger().info("GoodBye!");
-    }
-
-    /**
-     * Load/Create configs
-     */
-    private void loadConfigs() {
-        // Initialize config manager
-        long millis = System.currentTimeMillis();
-        this.getLogger().info("Loading configurations...");
-
-        this.configManager = new ConfigManager(this);
-
-        try {
-            this.mainConfig = new MainConfig();
-            this.messagesConfig = new MessagesConfig();
-        } catch (IOException e) {
-            this.getLogger().severe("Cannot load the Configuration!");
-            e.printStackTrace();
-        }
-
-        this.getLogger().info("Configurations loaded in " + (System.currentTimeMillis() - millis) + "ms!");
-    }
-
-    /**
-     * Hooks into LuckPerms
-     */
-    private void hookLuckPerms() {
-        long millis = System.currentTimeMillis();
-        this.getLogger().info("Hooking into LuckPerms...");
-        if (this.getProxy().getPluginManager().getPlugin("LuckPerms") == null) {
-            this.getLogger().info("");
-            this.getLogger().severe("WARNING! Unable to hook into LuckPerms!");
-            this.getLogger().severe("Make sure you installed LuckPerms correctly!");
-            this.getLogger().severe("This plugin won't work properly without LuckPerms!");
-            this.getLogger().severe("https://luckperms.net/download");
-            this.getLogger().info("");
-        } else {
-            // Initialize the LuckPerms API using LuckPermsProvider
-            luckPerms = LuckPermsProvider.get();
-            this.getLogger().info("Hooked into LuckPerms! (took " + (System.currentTimeMillis() - millis) + "ms)");
-        }
     }
 
     /**
@@ -150,12 +113,12 @@ public final class BungeeCore extends Plugin {
                 return;
             }
 
-             for (JsonElement element : dependencies) {
+            for (JsonElement element : dependencies) {
                 JsonObject dependency = element.getAsJsonObject();
-                 dependencyMap.put(
-                         dependency.get("name").getAsString(),
-                         dependency.get("url").getAsString()
-                 );
+                dependencyMap.put(
+                        dependency.get("name").getAsString(),
+                        dependency.get("url").getAsString()
+                );
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,6 +155,54 @@ public final class BungeeCore extends Plugin {
     }
 
     /**
+     * Hooks into LuckPerms
+     */
+    private void hookLuckPerms() {
+        long millis = System.currentTimeMillis();
+        this.getLogger().info("Hooking into LuckPerms...");
+        if (this.getProxy().getPluginManager().getPlugin("LuckPerms") == null) {
+            this.getLogger().info("");
+            this.getLogger().severe("WARNING! Unable to hook into LuckPerms!");
+            this.getLogger().severe("Make sure you installed LuckPerms correctly!");
+            this.getLogger().severe("This plugin won't work properly without LuckPerms!");
+            this.getLogger().severe("https://luckperms.net/download");
+            this.getLogger().info("");
+        } else {
+            // Initialize the LuckPerms API using LuckPermsProvider
+            luckPerms = LuckPermsProvider.get();
+            this.getLogger().info("Hooked into LuckPerms! (took " + (System.currentTimeMillis() - millis) + "ms)");
+        }
+    }
+
+    /**
+     * Load/Create configs
+     */
+    private void loadConfigs() {
+        // Initialize config manager
+        long millis = System.currentTimeMillis();
+        this.getLogger().info("Loading configurations...");
+
+        this.configManager = new ConfigManager(this);
+
+        try {
+            this.mainConfig = new MainConfig();
+            this.messagesConfig = new MessagesConfig();
+        } catch (IOException e) {
+            this.getLogger().severe("Cannot load the Configuration!");
+            e.printStackTrace();
+        }
+
+        this.getLogger().info("Configurations loaded in " + (System.currentTimeMillis() - millis) + "ms!");
+    }
+
+    /**
+     * Register Listeners
+     */
+    private void registerListeners() {
+        this.getProxy().getPluginManager().registerListener(this, new CommandBlockerListener(this));
+    }
+
+    /**
      * idk
      */
     private void startupMessage() {
@@ -206,7 +217,7 @@ public final class BungeeCore extends Plugin {
                         "&b                     __/ |                                          \n" +
                         "&b                    |___/                                           \n" +
                         "                                                                \n" +
-                        "    &Bungee Core &ev" + this.getDescription().getVersion() + " &eby &b" + this.getDescription().getAuthor() + "\n" +
+                        "    &bBungee Core &ev" + this.getDescription().getVersion() + " &eby &b" + this.getDescription().getAuthor() + "\n" +
                         "    &bRunning on " + ProxyServer.getInstance().getName() + "\n" +
                         " ");
 

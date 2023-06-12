@@ -20,7 +20,6 @@ public class ReloadCommand extends CommandClass {
         plugin.getMainConfig().reload();
         plugin.getMessagesConfig().reload();
 
-
         // Tell the command sender that the files have been reloaded
         sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().RELOAD_SUCCESSFUL()));
         sender.sendMessage(new TextComponent(StringUtils.colorize("&a(" + (System.currentTimeMillis() - millis) + "ms)")));

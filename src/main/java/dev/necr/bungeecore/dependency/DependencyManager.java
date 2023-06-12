@@ -1,5 +1,7 @@
 package dev.necr.bungeecore.dependency;
 
+import lombok.RequiredArgsConstructor;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -14,14 +16,11 @@ import java.util.Map;
 /**
  * Skidded from <a href="https://github.com/Alviannn/DependencyHelper">github.com/Alviannn/DependencyHelper</a>
  */
+@RequiredArgsConstructor
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class DependencyManager {
 
     private final ClassLoader classLoader;
-
-    public DependencyManager(ClassLoader classLoader) {
-        this.classLoader = classLoader;
-    }
 
     public DependencyManager(Class<?> clazz) {
         this.classLoader = clazz.getClassLoader();

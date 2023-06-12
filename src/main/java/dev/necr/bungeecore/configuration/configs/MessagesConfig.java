@@ -2,7 +2,7 @@ package dev.necr.bungeecore.configuration.configs;
 
 import dev.necr.bungeecore.BungeeCore;
 import dev.necr.bungeecore.utils.StringUtils;
-import lombok.Getter;
+import lombok.Data;
 import lombok.experimental.Accessors;
 import net.md_5.bungee.config.Configuration;
 
@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Accessors(fluent = true)
-@Getter
+@Data
 public class MessagesConfig {
 
     protected final BungeeCore plugin = BungeeCore.getInstance();
@@ -55,6 +55,11 @@ public class MessagesConfig {
     // # (/bungeecore pluginmanager|pm reload <pluginName>) | Reloads a plugin
     private final String PLUGIN_MANAGER_LIST = StringUtils.colorize(messagesConfig.getString("COMMANDS.PLUGIN_MANAGER_COMMAND.LIST"));
     private final String PLUGIN_MANAGER_NOT_FOUND = StringUtils.colorize(messagesConfig.getString("COMMANDS.PLUGIN_MANAGER_COMMAND.NOT_FOUND"));
+
+    // Command Blocker
+    private final String COMMAND_BLOCKER_BLOCKED_COMMAND_MESSAGE = StringUtils.colorize(messagesConfig.getString("COMMAND_BLOCKER.BLOCKED_COMMANDS_MESSAGE"));
+    private final String COMMAND_BLOCKER_LOGS_TO_CONSOLE_MESSAGE = StringUtils.colorize(messagesConfig.getString("COMMAND_BLOCKER.LOGS_TO_CONSOLE_MESSAGE"));
+    private final String COMMAND_BLOCKER_NOTIFY_STAFF_MESSAGE = StringUtils.colorize(messagesConfig.getString("COMMAND_BLOCKER.NOTIFY_STAFF_MESSAGE"));
 
     public void reload() {
         this.plugin.getConfigManager().reloadConfig("messages.yml");

@@ -72,6 +72,7 @@ public class GlobalChatCommand extends CommandClass {
                         .replace("BEDWARS-EVENT1", "BEDWARS")
                         .replace("BEDWARS-EVENT2", "BEDWARS")
                         .replace("BEDWARS-EVENT3", "BEDWARS"))
-                .replace("{message}", StringUtils.colorize(message));
+                .replace("{message}", StringUtils.colorize(message)
+                );
     }
 }

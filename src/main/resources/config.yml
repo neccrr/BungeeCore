@@ -14,7 +14,7 @@ COMMANDS:
   # Sends your message to the whole network
   GLOBALCHAT_COMMAND:
     COOLDOWN: 15
-    LOGS_GLOBALCHAT_TO_CONSOLE: true
+    LOGS_TO_CONSOLE: true
 
   # Hub Command (/hub)
   # Sends you to hub servers
@@ -23,3 +23,13 @@ COMMANDS:
       - hub
       - hub1
       - hub2
+
+COMMAND_BLOCKER:
+  ENABLED: true
+  LOGS_TO_CONSOLE: true
+  NOTIFY_STAFF: true
+  BLOCKED_COMMANDS:
+    - pl
+    - plugins
+    - ver
+    - version
