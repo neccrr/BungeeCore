@@ -24,10 +24,15 @@ public class MainConfig {
     private final boolean USE_COMMAND_CONFIRMATION = mainConfig.getBoolean("USE_COMMAND_CONFIRMATION");
 
     // Commands Configuration
+    // Global Chat
     private final long GLOBALCHAT_COOLDOWN = mainConfig.getLong("COMMANDS.GLOBALCHAT_COMMAND.COOLDOWN");
     private final boolean GLOBALCHAT_LOGS_TO_CONSOLE = mainConfig.getBoolean("COMMANDS.GLOBALCHAT_COMMAND.LOGS_TO_CONSOLE");
 
+    // Hub cmd
     private final List<String> HUB_SERVERS = mainConfig.getStringList("COMMANDS.HUB_COMMAND.HUB_SERVERS");
+
+    // Private message
+    private final boolean PRIVATE_MESSAGE_LOGS_TO_CONSOLE = mainConfig.getBoolean("COMMANDS.PRIVATE_MESSAGE_COMMAND.LOGS_TO_CONSOLE");
 
     // Command Blocker Configuration
     private final boolean COMMAND_BLOCKER_ENABLED = mainConfig.getBoolean("COMMAND_BLOCKER.ENABLED");

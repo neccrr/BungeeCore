@@ -31,6 +31,7 @@ COMMANDS:
     TO:  "&bTo &7{target_prefix}{target_name}&f: {message}"
     FROM:  "&bFrom &7{target_prefix}{target_name}&f: {message}"
     NO_ONE_TO_REPLY: "&cYou don't have anyone to reply to!"
+    SOCIALSPY: "&7{player_prefix}{player_name} &b--> {target_prefix}{target_name}&f: {message}"
 
   # Warp Command (/warp|goto <target>)
   # Sends you to player's current server

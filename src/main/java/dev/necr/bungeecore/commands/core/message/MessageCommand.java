@@ -23,47 +23,58 @@ public class MessageCommand extends CommandClass {
     @CommandMethod("message|msg|m|whisper|w|tell <target> <message>")
     @CommandDescription("Sends private message to another player")
     public void messageCommand(final @NonNull CommandSender sender, final @NonNull @Argument(value = "target", description = "The target player", suggestions = "players") String targetName, final @NonNull @Argument(value = "message", description = "The message to send") @Greedy String message) {
-        if (sender instanceof ProxiedPlayer) {
-            ProxiedPlayer player = (ProxiedPlayer) sender;
-            ProxiedPlayer target = ProxyServer.getInstance().getPlayer(targetName);
-
-            if (!Utils.checkPermission(sender, "privatemessage.message")) {
-                return;
-            }
-
-            if (player.getName().equalsIgnoreCase(targetName)) {
-                player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_SELF()));
-                return;
-            }
-
-            if (target == null) {
-                player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().TARGET_NOT_FOUND()
-                        .replace("{target_name}", targetName)));
-                return;
-            }
-
-            player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_TO()
-                    .replace("{player_name}", player.getName())
-                    .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
-                    .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
-                    .replace("{target_name}", target.getName())
-                    .replace("{target_prefix}", LuckPermsHook.getPrefix(target))
-                    .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
-                    .replace("{message}", StringUtils.colorize(message))));
-
-            target.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_FROM()
-                    .replace("{player_name}", player.getName())
-                    .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
-                    .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
-                    .replace("{target_name}", target.getName())
-                    .replace("{target_prefix}", LuckPermsHook.getPrefix(target))
-                    .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
-                    .replace("{message}", StringUtils.colorize(message))));
-
-            this.reply(player.getUniqueId(), target.getUniqueId());
-
-        } else {
+        if (!(sender instanceof ProxiedPlayer)) {
             sender.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PLAYER_ONLY()));
+            return;
+        }
+
+        ProxiedPlayer player = (ProxiedPlayer) sender;
+        ProxiedPlayer target = ProxyServer.getInstance().getPlayer(targetName);
+
+        if (!Utils.checkPermission(sender, "privatemessage.message")) {
+            return;
+        }
+
+        if (player.getName().equalsIgnoreCase(targetName)) {
+            player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_SELF()));
+            return;
+        }
+
+        if (target == null) {
+            player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().TARGET_NOT_FOUND()
+                    .replace("{target_name}", targetName)));
+            return;
+        }
+
+        player.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_TO()
+                .replace("{player_name}", player.getName())
+                .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
+                .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
+                .replace("{target_name}", target.getName())
+                .replace("{target_prefix}", LuckPermsHook.getPrefix(target))
+                .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
+                .replace("{message}", StringUtils.colorize(message))));
+
+        target.sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_FROM()
+                .replace("{player_name}", player.getName())
+                .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
+                .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
+                .replace("{target_name}", target.getName())
+                .replace("{target_prefix}", LuckPermsHook.getPrefix(target))
+                .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
+                .replace("{message}", StringUtils.colorize(message))));
+
+        this.reply(player.getUniqueId(), target.getUniqueId());
+
+        if (plugin.getMainConfig().PRIVATE_MESSAGE_LOGS_TO_CONSOLE()) {
+            plugin.getProxy().getConsole().sendMessage(new TextComponent(plugin.getMainConfig().PREFIX() + plugin.getMessagesConfig().PRIVATEMESSAGE_SOCIALSPY()
+                    .replace("{player_name}", player.getName())
+                    .replace("{player_prefix}", LuckPermsHook.getPrefix(player))
+                    .replace("{player_suffix}", LuckPermsHook.getSuffix(player))
+                    .replace("{target_name}", target.getName())
+                    .replace("{target_prefix}", LuckPermsHook.getPrefix(target))
+                    .replace("{target_suffix}", LuckPermsHook.getSuffix(target))
+                    .replace("{message}", StringUtils.colorize(message))));
         }
     }
 

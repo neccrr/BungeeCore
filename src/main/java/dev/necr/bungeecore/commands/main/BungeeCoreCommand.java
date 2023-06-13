@@ -55,13 +55,12 @@ public class BungeeCoreCommand {
 
         // registers the custom help command
         // still doesn't work idk why
-        try (BungeeAudiences bungeeAudiences = BungeeAudiences.create(plugin)) {
-            this.minecraftHelp = new MinecraftHelp<>(
-                    "/bungeecore help",
-                    bungeeAudiences::sender,
-                    this.commandManager
-            );
-        }
+        BungeeAudiences bungeeAudiences = BungeeAudiences.create(plugin);
+        this.minecraftHelp = new MinecraftHelp<>(
+                "/bungeecore help",
+                bungeeAudiences::sender,
+                this.commandManager
+        );
 
         // registers the annotation parser
         Function<ParserParameters, CommandMeta> commandMetaFunction = it ->

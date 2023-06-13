@@ -38,6 +38,7 @@ public class MessagesConfig {
     private final String PRIVATEMESSAGE_TO = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.TO"));
     private final String PRIVATEMESSAGE_FROM = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.FROM"));
     private final String PRIVATEMESSAGE_NO_ONE_TO_REPLY = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.NO_ONE_TO_REPLY"));
+    private final String PRIVATEMESSAGE_SOCIALSPY = StringUtils.colorize(messagesConfig.getString("COMMANDS.PRIVATEMESSAGE_COMMAND.SOCIALSPY"));
 
     // Warp Command (/warp|goto <target>)
     // # Sends you to player's current server

@@ -24,6 +24,9 @@ COMMANDS:
       - hub1
       - hub2
 
+  PRIVATE_MESSAGE_COMMAND:
+    LOGS_TO_CONSOLE: true
+
 COMMAND_BLOCKER:
   ENABLED: true
   LOGS_TO_CONSOLE: true
